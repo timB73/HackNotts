@@ -1,7 +1,26 @@
 Login screen
 	Username
-	They assign thier own colour
-	
+	They assign their own colour
+
 
 Design:
-Paper background
+- Paper background
+- Lines drawn in real-time
+- Modular design- toolbar
+
+Extras:
+- Permanent saving
+- Multiple whiteboards
+- Show cursors
+
+Websockets:
+- Coordinates stream through sockets and JS creates the lines based on
+coordinates.
+-
+
+
+
+Database design:
+
+coordinates
+PK: ID of line
