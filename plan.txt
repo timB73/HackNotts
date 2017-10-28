@@ -7,6 +7,16 @@ Design:
 - Paper background
 - Lines drawn in real-time
 - Modular design- toolbar
+    > Lines
+    > Free-form lines
+        >> Different styles of brush (size, colour)
+    > Ellipse
+    > Rectangle
+    > Pipette
+    > Eraser
+    > Text
+    > Selection (copy + cut + paste + delete)
+
 
 Extras:
 - Permanent saving
