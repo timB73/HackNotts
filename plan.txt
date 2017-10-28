@@ -4,18 +4,17 @@ Login screen
 
 
 Design:
-- Paper background
-- Lines drawn in real-time
+- Paper background by default - Allow users to link to an image URL to change this
 - Modular design- toolbar
     > Lines
     > Free-form lines
-        >> Different styles of brush (size, colour)
+        >> Different styles of brush (size, colour, opacity)
     > Ellipse
     > Rectangle
     > Pipette
     > Eraser
     > Text
-    > Selection (copy + cut + paste + delete)
+    > Square-based selection tool (copy + cut + paste + delete)
 
 
 Extras:
