@@ -11,6 +11,6 @@
 
 }
 
-#error-wrap {
-	display: none;
+#error-msg {
+	color: red;
 }

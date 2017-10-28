@@ -10,8 +10,7 @@ $(function(){
 	});
 
 	socket.on('invalidName', function(err){
-		$('#error-msg').val(err);
-		$('#error-wrap').show();
+		$('#error-msg').text(err);
 	});
 
 	socket.on('validName', function(valName){
