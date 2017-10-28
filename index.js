@@ -24,11 +24,15 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
 	var name = "";
 	socket.on('setUsername', function(nick){
-		name = nick;
+		name = nick.trim();
 		if(users[name]){ //if taken
 			socket.emit('invalidName', "Username taken.");
-		} else if(name.trim() == "") { //if just space/tab/nothing
-			socket.emit('invalidName', "Username must contain non-whitespace characters.");
+		} else if(name == "") { //if just space/tab/nothing
+			socket.emit('invalidName', "Username must not be blank.");
+		} else if(name.match(/[\W_]+/g) != null) {
+			socket.emit('invalidName', "Username contains illegal characters.");
+		} else if(name.length < 3){
+			socket.emit('invalidName', "Username must be at least 3 characters.");
 		} else {
 			socket.emit('validName', name);
 			io.emit('userJoin', name);
