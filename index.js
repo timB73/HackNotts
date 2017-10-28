@@ -9,12 +9,14 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+
+	//username parsing
 	var name = ""
 	socket.on('setUsername', function(nick){
 		name = nick;
-		if(users[name]){
+		if(users[name]){ //if taken
 			socket.emit('invalidName', "Username taken.");
-		} else if(name.trim() == "") {
+		} else if(name.trim() == "") { //if just space/tab/nothing
 			socket.emit('invalidName', "Username must contain non-whitespace characters.");
 		} else {
 			socket.emit('validName', name);
@@ -28,11 +30,15 @@ io.on('connection', function(socket){
 		delete users[name];
 	});
 
+	//room stuff
 	socket.on('joinRoom', function(id){
 		var nsp = io.nsps['/'].adapter.rooms[id];
 		if(nsp){
    			socket.join(id);
+
    			socket.emit('joinedRoom', id)
+
+   			io.sockets.in(id).emit('userJoinedRoom', name);
 
    			//any other room get stuff.
 
