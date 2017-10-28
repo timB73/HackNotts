@@ -4,7 +4,7 @@ $(function(){
 
 	// tmp set username
 	$('#user-submit').click(function(){
-		name = $('username').val();
+		name = $('#username').val();
 		socket.emit('setUsername', name);
 		return false;
 	});
