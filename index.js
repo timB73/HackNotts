@@ -68,8 +68,6 @@ io.on('connection', function(socket){
    		socket.emit('createdRoom', id)
 
    		//some room init stuff
-
-   		}
 	});
 
 });
