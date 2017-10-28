@@ -4,14 +4,46 @@ html, body {
 
 #whiteboard-row {
 	display: none;
-	min-height: 50%;
+	width: 100%;
 }
 
 #whiteboard {
-	background-image: url("../images/background.jpeg");
-	height: 95%;
-	border: 1px solid #ccc;
-	min-height: 95%;
+	background-image: url(../images/background.jpeg);
+    height: 95%;
+    border: 1px solid #ccc;
+    min-height: 95%;
+    width: 80%;
+    position: absolute;
+    left: 0;
+    top: 31px;
+}
+
+#topbar {
+	width: 100%;
+    height: 30px;
+    position: absolute;
+    background-color: green;
+    left: 0;
+}
+
+#nickname {
+	width: 70%;
+}
+
+#link {
+	width: 30%;
+}
+
+#toolbar {
 	position: absolute;
-	top: 4%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    background-color: lightgray;
+}
+
+#chat {
+	min-height: 100%;
+	border: 1px solid red;
 }
