@@ -49,8 +49,9 @@ $(document).ready(function() {
             if(drawPoints.length != 0) {
                 drawLine(drawPoints[drawPoints.length-1], pos);
             }
-            drawPoints.push(pos);
+            
         }
+        drawPoints.push(pos);
         localDrawInfo[tmpDrawId].points = drawPoints;
     }
 

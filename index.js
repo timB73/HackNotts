@@ -131,11 +131,15 @@ io.on('connection', function(socket){
 	socket.on('initDraw', function(type){
 		drawId = data[roomId].drawInfo.length;
 		data[roomId].drawInfo[drawId] = {type:type, points:[]}
-		io.emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
+		io.to(roomId).emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 
 	socket.on('drawPoint', function(data){
-		socket.broadcast.emit('drawPoint', data);
+		socket.broadcast.to(roomId).emit('drawPoint', data);
+		data = JSON.parse(data);
+		drawPoints = data[roomId].drawInfo[data.id].points;
+		drawPoints.push(data.pos);
+		data[roomId].drawInfo[data.id].points = drawPoints;
 	});
 
 
@@ -143,7 +147,7 @@ io.on('connection', function(socket){
 
 	socket.on('sendMsg', function(data){
 		var sendObj = {sender:name, msg:data, colour:col}
-		socket.broadcast.emit('receiveMsg', JSON.stringify(sendObj));
+		socket.broadcast.to(roomId).emit('receiveMsg', JSON.stringify(sendObj));
 	});
 
 });
