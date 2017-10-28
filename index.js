@@ -28,6 +28,32 @@ io.on('connection', function(socket){
 		delete users[name];
 	});
 
+	socket.on('joinRoom', function(id){
+		var nsp = io.nsps['/'].adapter.rooms[id];
+		if(nsp){
+   			socket.join(id);
+   			socket.emit('joinedRoom', id)
+
+   			//any other room get stuff.
+
+   		} else {
+			socket.emit('joinedRoomErr', "Room does not exist")
+   		}
+	});
+
+	socket.on('createRoom', function(id){
+		var nsp = io.nsps['/'].adapter.rooms[id];
+		if(!nsp){
+   			socket.join(id);
+   			socket.emit('createRoom', id)
+
+   			//some room init stuff
+
+   		} else {
+			socket.emit('createRoomErr', "Room already exists")
+   		}
+	});
+
 });
 
 http.listen(3000, function(){
