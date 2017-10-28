@@ -11,6 +11,13 @@
 
 }
 
+#username-corner {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 20px;
+}
+
 #error-msg {
 	color: red;
 	margin-top: 15px;
