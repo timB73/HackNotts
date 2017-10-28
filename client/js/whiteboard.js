@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    var tool = 1;
+    var toolNames = ["Freeform line"];
 
     $('#code-code').click(function(){
         var ret = copyToClipboard(findGetParameter("id"));
@@ -10,17 +12,45 @@ $(document).ready(function() {
         }, 2000);
     });
 
+    var whiteboard = $('#whiteboard')
 
-	$("#whiteboard").mousedown(function() {
+    var mouseDown = 0;
+    var drawStatus = "inactive";
+    whiteboard.mousedown(function(){
+        if(mouseDown == 0){
+            socket.emit('initDraw', tool);
+            drawStatus = "pending";
+        }
+        ++mouseDown;
+    })
 
-	});
+    whiteboard.mouseup(function(){
+        --mouseDown;
+    })
+
+    whiteboard.mousemove(function(evt){
+        var pos = getMousePos(whiteboard, evt);
+        if(mouseDown){
+
+        }
+    });
+
+	
 
 });
+
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: Math.floor((evt.clientX-rect.left)/(rect.right-rect.left)*canvas.width),
+        y: Math.floor((evt.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height)
+    };
+}
 
 function copyToClipboard(text) {
     var $temp = $("<input>");
     $("body").append($temp);
-    $temp.val(text).select();
+    $temp.val(txt).select();
     var msg;
     try {
         var successful = document.execCommand('copy');
