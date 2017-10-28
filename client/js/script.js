@@ -17,6 +17,7 @@ $(function(){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
 		showWhiteboard();
 		window.history.pushState({}, '', '?id='+id);
+		$('#code-txt').val(findGetParameter("id"));
 	});
 
 	$('#joinRoom').click(function(){
@@ -34,7 +35,7 @@ $(function(){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
 		window.history.pushState({}, '', '?id='+id);
 		showWhiteboard();
-		$('#code-txt').text(findGetParameter("id"));
+		$('#code-txt').val(findGetParameter("id"));
 	});
 
 	socket.on('invalidRoom', function(err){

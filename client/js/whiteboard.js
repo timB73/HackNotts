@@ -3,12 +3,12 @@ $(document).ready(function() {
     var tool = 1;
     var toolNames = ["Freeform line"];
 
-    $('#code-code').click(function(){
+    $('#copy-code').click(function(){
         var ret = copyToClipboard(findGetParameter("id"));
-        $('#code-code-error').text(ret);
-        $('#code-code-error').show()
+        $('#copy-code-error').text(ret);
+        $('#copy-code-error').show()
         setTimeout(function(){
-            $('#code-txt-error').fadeOut();
+            $('#copy-code-error').fadeOut();
         }, 2000);
     });
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
     whiteboard.mousemove(function(evt){
         var pos = getMousePos(document.getElementById("whiteboard"), evt);
         if(mouseDown){
-
+            socket.emit('drawPoint', JSON.stringify(pos));
         }
     });
 
@@ -50,7 +50,7 @@ function getMousePos(canvas, evt) {
 function copyToClipboard(text) {
     var $temp = $("<input>");
     $("body").append($temp);
-    $temp.val(txt).select();
+    $temp.val(text).select();
     var msg;
     try {
         var successful = document.execCommand('copy');
@@ -80,7 +80,8 @@ function findGetParameter(parameterName) {
 }
 
 function showWhiteboard() {
-	$("#createOrJoin-form, #username-corner").fadeOut(function() {
+	$("#createOrJoin-form, #username-corner").fadeOut()
+    setTimeout(function() {
 		$("#whiteboard-row").fadeIn();
-	});
+	}, 500);
 }
