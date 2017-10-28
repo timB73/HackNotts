@@ -26,7 +26,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	var name = "";
-	var id = "";
+	var roomId = "";
 	socket.on('setUsername', function(nick){
 		name = nick.trim();
 		if(users[name]){ //if taken
@@ -67,7 +67,7 @@ io.on('connection', function(socket){
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
    			
-
+   			roomId = id;
    			(data[id].users).push(name);
 
    			sendPlys();
@@ -80,8 +80,9 @@ io.on('connection', function(socket){
 	function sendPlys() {
 		console.log(socket.rooms);
 		console.log(data);
-		console.log(id);
-		var users = data[id].users;
+		console.log(roomId);
+		console.log(data[roomId]);
+		var users = data[roomId].users;
 		io.emit('usersOnline', JSON.stringify(users));
 		
 	}
@@ -95,6 +96,8 @@ io.on('connection', function(socket){
    		socket.join(id);
    		socket.emit('createdRoom', id)
 
+   		roomId = id;
+
    		data[id] = {users:[name], drawInfo:[]};
 
    		sendPlys();
@@ -103,8 +106,8 @@ io.on('connection', function(socket){
 	//draw handling
 
 	socket.on('initDraw', function(type){
-		drawId = data[id].drawInfo.length;
-		data[id].drawInfo[drawId] = {type:type, points:[]}
+		drawId = data[roomId].drawInfo.length;
+		data[roomId].drawInfo[drawId] = {type:type, points:[]}
 		socket.emit('initDrawId', drawId);
 	});
 
