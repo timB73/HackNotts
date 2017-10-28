@@ -111,9 +111,13 @@ html, body {
 	cursor: pointer;
 }
 
-#chat-msg {
+#chat-form {
 	position: absolute;
     left: 0;
     right: 0;
     bottom: 7px;
 }
+
+#chat-messages-list {list-style-type: none; margin: 0; padding: 0;}
+#chat-messages-list li { padding: 5px 10px; }
+#chat-messages-list li:nth-child(odd) { background: #eee; }

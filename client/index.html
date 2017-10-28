@@ -59,7 +59,7 @@
 					</div>
 					<div id="chat-bar">
 						<select id="users-online" class="form-control">
-							<option value="0" selected>Online</option>
+							<option value="0" selected="true" disabled="true">Online</option>
 						</select>
 						<i class="fa fa-window-minimize" id="minimize-chat" title="Minimize chat"></i>
 					</div>
@@ -70,8 +70,16 @@
 				</canvas>
 
 				<div id="chat">
+					<div id="chat-messages">
+						<ul id="chat-messages-list">
 
-					<input type="text" placeholder="Type a message..." id="chat-msg" class="form-control"/>
+						</ul>
+					</div>
+
+					<form id="chat-form">
+						<input type="text" placeholder="Type a message..." id="chat-msg" class="form-control"/>
+						<input type="submit" hidden>
+					</form>
 				</div>
 			</div>
 
