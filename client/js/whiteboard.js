@@ -5,7 +5,7 @@ $(document).ready(function() {
     var tool = 1;
     var toolNames = ["Freeform line"];
 
-    var freeformLastPost = null;
+    var localDrawInfo = [];
 
     $('#copy-code').click(function(){
         var ret = copyToClipboard(findGetParameter("id"));
@@ -22,7 +22,6 @@ $(document).ready(function() {
     $("#whiteboard").mousedown(function(){
         if(mouseDown == 0){
             socket.emit('initDraw', tool);
-            freeformLastPos = null;
             drawStatus = "pending";
         }
         ++mouseDown;
@@ -36,39 +35,50 @@ $(document).ready(function() {
     })
 
     $("#whiteboard").mousemove(function(evt){
-
-        var pos = {pos: getMousePos(document.getElementById("whiteboard"), evt), id: drawId};
-        if(mouseDown && drawId){
-            socket.emit('drawPoint', JSON.stringify(pos));
-            if(tool == 1){
-                if(freeformLastPos != null) {
-                    drawLine(freeformLastPos, pos);
-                }
-                freeformLastPos = pos;
-            }
+        var pos = getMousePos(document.getElementById("whiteboard"), evt)
+        var sendData = {pos: pos, id: drawId, type:tool};
+        if(mouseDown && drawStatus == "drawing"){
+            socket.emit('drawPoint', JSON.stringify(sendData));
+            draw(tool, drawId, pos);
         }
     });
 
-    socket.on('initDrawId', function(id){
-        drawId = id;
+    function draw(type, tmpDrawId, pos){
+        drawPoints = localDrawInfo[tmpDrawId].points;
+        if(type == 1){
+            if(drawPoints.length != 0) {
+                drawLine(drawPoints[drawPoints.length-1], pos);
+            }
+            drawPoints.push(pos);
+        }
+        localDrawInfo[tmpDrawId].points = drawPoints;
+    }
+
+    socket.on('initDrawId', function(data){
+        data = JSON.parse(data);
+        drawId = data.id;
+        if(data.name == name){
+            drawStatus = "drawing";
+            type = tool;
+        } else {
+            type = data.type;
+        }
+        localDrawInfo[drawId] = {type:type,points:[]}
     });
 
-    socket.on("drawPoint", function(pos) {
-        var data = JSON.parse(pos);
-        drawLine(pos.start, pos.end, true);
+    socket.on("drawPoint", function(data) {
+        var data = JSON.parse(data);
+        draw(data.type, data.id, data.pos);
     });
 
 });
 
-function drawLine(start,end, receiving){
+function drawLine(start,end){
     var ctx = whiteboard.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
     ctx.stroke();
-    if(typeof receiving == 'undefined') {
-        socket.emit("drawPoint", JSON.stringify({start: start, end: end}));
-    }
 }
 
 function getMousePos(canvas, evt) {

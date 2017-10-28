@@ -131,11 +131,11 @@ io.on('connection', function(socket){
 	socket.on('initDraw', function(type){
 		drawId = data[roomId].drawInfo.length;
 		data[roomId].drawInfo[drawId] = {type:type, points:[]}
-		socket.emit('initDrawId', drawId);
+		io.emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 
 	socket.on('drawPoint', function(data){
-		
+		socket.broadcast.emit('drawPoint', data);
 	});
 
 
