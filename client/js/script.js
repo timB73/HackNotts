@@ -11,14 +11,13 @@ $(function(){
 
 	$('#createRoom').click(function(){
 		socket.emit('createRoom');
-
-		$("#whiteboard-row").show();
 		return false;
 
 	});
 
 	socket.on('createdRoom', function(id){
-		window.location.href="whiteboard.html?id="+id+"&name="+name;
+		// window.location.href="whiteboard.html?id="+id+"&name="+name;
+		$("#whiteboard-row").show();
 	});
 
 	$('#joinRoom').click(function(){
@@ -28,14 +27,13 @@ $(function(){
 		} else {
 			socket.emit('joinRoom', $('#joinRoomId').val());
 		}
-		
-		$("#whiteboard-row").show();
 		return false;
 
 	});
 
 	socket.on('validRoom', function(id){
-		window.location.href="whiteboard.html?id="+id+"&name="+name;
+		// window.location.href="whiteboard.html?id="+id+"&name="+name;
+		$("#whiteboard-row").show();
 	});
 
 	socket.on('invalidRoom', function(err){
