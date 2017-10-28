@@ -1,3 +1,4 @@
+var whiteboard = document.getElementById("whiteboard");
 $(document).ready(function() {
 
     var tool = 1;
@@ -14,11 +15,10 @@ $(document).ready(function() {
         }, 2000);
     });
 
-    var whiteboard = $('#whiteboard')
 
     var mouseDown = 0;
     var drawStatus = "inactive";
-    whiteboard.mousedown(function(){
+    $("#whiteboard").mousedown(function(){
         if(mouseDown == 0){
             socket.emit('initDraw', tool);
             freeformLastPos = null;
@@ -27,28 +27,40 @@ $(document).ready(function() {
         ++mouseDown;
     })
 
-    whiteboard.mouseup(function(){
+    $("#whiteboard").mouseup(function(){
         --mouseDown;
+        if(mouseDown == 0){
+            drawId = null;
+        }
     })
 
-    whiteboard.mousemove(function(evt){
+    $("#whiteboard").mousemove(function(evt){
 
-        var pos = getMousePos(document.getElementById("whiteboard"), evt);
-        if(mouseDown){
+        var pos = {pos: getMousePos(document.getElementById("whiteboard"), evt), id: drawId};
+        if(mouseDown && drawId){
             socket.emit('drawPoint', JSON.stringify(pos));
             if(tool == 1){
-                drawLine(freeformLastPos, pos);
+                if(freeformLastPos != null) {
+                    drawLine(freeformLastPos, pos);
+                }
                 freeformLastPos = pos;
             }
         }
     });
 
+    socket.on('initDrawId', function(id){
+        drawId = id;
+    });
 
 
 });
 
 function drawLine(start,end){
-    
+    var ctx = whiteboard.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(start.x,start.y);
+    ctx.lineTo(end.x,end.y);
+    ctx.stroke();
 }
 
 function getMousePos(canvas, evt) {
