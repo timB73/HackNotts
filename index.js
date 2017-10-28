@@ -46,6 +46,9 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
 		io.emit('userLeave', name);
+		if(roomId!=""){
+			io.to(roomId).emit('serverMsg', name+" has left the room.");
+		}
 		console.log("discon");
 		delete users[name];
 	});
@@ -72,6 +75,8 @@ io.on('connection', function(socket){
 
    			sendPlys();
 
+   			io.to(roomId).emit('serverMsg', name+" has joined the room.");
+
    		} else {
 			socket.emit('invalidRoom', "Room does not exist")
    		}
@@ -83,7 +88,7 @@ io.on('connection', function(socket){
 		console.log(roomId);
 		console.log(data[roomId]);
 		var users = data[roomId].users;
-		io.emit('usersOnline', JSON.stringify(users));
+		io.to(roomId).emit('usersOnline', JSON.stringify(users));
 		
 	}
 
@@ -101,7 +106,9 @@ io.on('connection', function(socket){
    		data[id] = {users:[name], drawInfo:[]};
 
    		sendPlys();
-	});
+
+   		io.to(roomId).emit('serverMsg', name+" has joined the room.");
+   	});
 
 	//draw handling
 
@@ -109,6 +116,15 @@ io.on('connection', function(socket){
 		drawId = data[roomId].drawInfo.length;
 		data[roomId].drawInfo[drawId] = {type:type, points:[]}
 		socket.emit('initDrawId', drawId);
+	});
+
+
+
+	//chat handling
+
+	socket.on('sendMsg'function(data){
+		var sendObj = {sender:name, msg:data}
+		socket.broadcast.emit('receiveMsg', JSON.stringify(sendObj));
 	});
 
 });
