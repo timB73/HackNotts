@@ -1,6 +1,10 @@
 var name = "";
 var userCol = "";
 $(function(){
+	var tmpId = findGetParameter("id");
+	if(tmpId){
+		socket.emit("doesRoomExist", tmpId);
+	}
 
 	// tmp set username
 	$('#user-submit').click(function(){
@@ -31,6 +35,9 @@ $(function(){
 		}
 		return false;
 
+	});
+	socket.on("roomNotExist", function(){
+		window.history.pushState({}, '', '?');
 	});
 
 	socket.on('validRoom', function(id){
