@@ -26,12 +26,24 @@ coordinates
 PK: ID of line
 
 for whiteboard
-	toolbars, player list etc on one page, with iframe to whiteboard page
-	whiteboard page is purely for drawing, can pass the username, etc. via post/url
-		this removes drawing outside of range or whatever
-		can put any other element on top of iframe, so the iframe wont get the click event, and wont draw.
+	plan on paper, dw
+	we show the page ID at top right
+	we also have a link where, when pressed, the page link is copied to the clipboard for other users to connect via
+	chat/players online on the right
+	toolbar on the left
+	useful info on the top
+
+on load
+	request username
+	if valid
+	username box expands to whole screen, so its all white,
+	username itself moves to top right or something, then page loads
+next page:
+	create : creates a page with a unique id, requested from the server
+	join : 
 		
-		
+chat rooms with hosts and clients
+	host creates the room most likely with unique ID in url or something idk		
 
 whos doin what:
 	tim 	technical shizzle &/| graphical shizzle
