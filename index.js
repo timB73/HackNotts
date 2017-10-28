@@ -101,6 +101,13 @@ io.on('connection', function(socket){
 
 	}
 
+	socket.on("doesRoomExist", function(id){
+		console.log(id);
+		if(!data[id]){
+			socket.emit("roomNotExist");
+		}
+	});
+
 	socket.on('createRoom', function(){
 		do {
 			id = makeid()
@@ -127,6 +134,9 @@ io.on('connection', function(socket){
 		socket.emit('initDrawId', drawId);
 	});
 
+	socket.on('drawPoint', function(data){
+		
+	});
 
 
 	//chat handling
