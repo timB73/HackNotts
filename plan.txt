@@ -18,10 +18,10 @@
     >> Brush
         >>> Different styles of brush (size, colour, opacity)
 
+------EXTRA-------
+TOOLBAR
+    > Allow user to change the font of the text
 
-
-
-Extras design:
 > Permanent saving
     >> Using an SQL database
 > Multiple whiteboards

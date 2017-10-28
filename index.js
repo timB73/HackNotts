@@ -10,9 +10,7 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-
-	//username parsing
-	var name = ""
+	var name = "";
 	socket.on('setUsername', function(nick){
 		name = nick;
 		if(users[name]){ //if taken
