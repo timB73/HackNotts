@@ -1,2 +1,0 @@
-# HackNotts
-Test for HackNotts
