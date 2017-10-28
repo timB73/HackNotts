@@ -1,4 +1,16 @@
 #form-row {
+	display: flex;
+    align-items: center;
 	position: relative;
-	top: 50%;
+	top: 250px;
+}
+
+#user-submit {
+	float: right;
+	margin-top: 10px;
+
+}
+
+#error-wrap {
+	display: none;
 }
