@@ -25,7 +25,7 @@ Extras design:
 Programming design:
     > General flow
         1. Enter username
-            - If their username is
+            - If their username is  not taken, store it in database
         2.
 
 
