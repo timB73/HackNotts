@@ -3,24 +3,29 @@ Login screen
 	They assign their own colour
 
 
-Design:
-- Paper background by default - Allow users to link to an image URL to change this
-- Modular design- toolbar
-    > Lines
-    > Free-form lines
-        >> Different styles of brush (size, colour, opacity)
-    > Ellipse
-    > Rectangle
-    > Pipette
-    > Eraser
-    > Text
-    > Square-based selection tool (copy + cut + paste + delete)
+Basic design:
+> Paper background by default - Allow users to link to an image URL to change this
+> Modular design (Toolbar to the left of the whiteboard)
+    >> Lines
+    >> Free-form lines
+        >>> Different styles of brush (size, colour, opacity)
+    >> Ellipse
+    >> Rectangle
+    >> Pipette
+    >> Eraser
+    >> Text
+    >> Square-based selection tool (copy + cut + paste + delete)
 
-
-Extras:
+Extras design:
 - Permanent saving
 - Multiple whiteboards
 - Show cursors
+
+
+Programming design:
+> Username entry
+    >> Once the user has pressed enter/clicked a submit 
+
 
 Websockets:
 - Coordinates stream through sockets and JS creates the lines based on
