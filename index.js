@@ -66,6 +66,7 @@ io.on('connection', function(socket){
    			socket.emit('validRoom', id)
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
+   			sendPlys();
 
    			(data[id].users).push(name);
 
@@ -74,11 +75,11 @@ io.on('connection', function(socket){
    		}
 	});
 
-	socket.on('getUsersInRoom', function(){
+	function sendPlys() {
 		var users = data[socket.rooms[0]].users;
-		socket.emit('usersOnline', JSON.stringify(users));
+		io.emit('usersOnline', JSON.stringify(users));
 		
-	});
+	}
 
 	socket.on('createRoom', function(){
 		do {
