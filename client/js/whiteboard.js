@@ -29,9 +29,9 @@ $(document).ready(function() {
     })
 
     whiteboard.mousemove(function(evt){
-        var pos = getMousePos(whiteboard, evt);
+        var pos = getMousePos(document.getElementById("whiteboard"), evt);
         if(mouseDown){
-            
+
         }
     });
 
