@@ -6,8 +6,9 @@ Login screen
 Basic design:
 > Paper background by default - Allow users to link to an image URL to change this
 > Modular design (Toolbar to the left of the whiteboard)
+    >> Colour switcher
     >> Lines
-    >> Free-form lines
+    >> Brush
         >>> Different styles of brush (size, colour, opacity)
     >> Ellipse
     >> Rectangle
@@ -17,22 +18,24 @@ Basic design:
     >> Square-based selection tool (copy + cut + paste + delete)
 
 Extras design:
-- Permanent saving
-- Multiple whiteboards
-- Show cursors
+    - Permanent saving
+    - Multiple whiteboards
+    - Show cursors
 
 
 Programming design:
     > General flow
-        1. Enter username
-            - If their username is
-        2.
+        1. Display the "Enter username screen"
+            - If their username is not already taken, store it. Otherwise, show an error message and clear the entry box.
+            - Generate a random colour for the user (RGB values in HEX)
+        2. Display the "Create/Join screen"
+            - Show the username that they created in the top left of the screen
+        3.
 
 
 Websockets:
 - Coordinates stream through sockets and JS creates the lines based on
 coordinates.
--
 
 
 
