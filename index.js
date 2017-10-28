@@ -4,6 +4,7 @@ var io = require('socket.io')(http);
 
 var users = {}
 
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
