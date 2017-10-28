@@ -26,6 +26,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 	var name = "";
+	var id = "";
 	socket.on('setUsername', function(nick){
 		name = nick.trim();
 		if(users[name]){ //if taken
