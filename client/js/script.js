@@ -24,7 +24,8 @@ $(function(){
 	$('#joinRoom').click(function(){
 		var vis = $('#joinRoomId').is(":visible")
 		if(!vis){
-			$('#joinRoomId').fadeIn()
+			$('#joinRoomId').fadeIn();
+			$('#joinRoomId').focus();
 		} else {
 			socket.emit('joinRoom', $('#joinRoomId').val());
 		}
