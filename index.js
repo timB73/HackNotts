@@ -18,6 +18,7 @@ function makeid() {
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/client/index.html');
+	res.sendFile(__dirname + '/client/whiteboard.html');
 	app.use(express.static(__dirname + '/client'));
 });
 
@@ -47,18 +48,25 @@ io.on('connection', function(socket){
 
 	//room stuff
 	socket.on('joinRoom', function(id){
+
+		if(id.length!=5){
+			socket.emit('invalidRoom', "Room id must be 5 characters.");
+		} else if(id.match(/[\W_]+/g) != null){
+			socket.emit('invalidRoom', "Room id contains illegal characters.");
+		}
+
 		var nsp = io.nsps['/'].adapter.rooms[id];
 		if(nsp){
    			socket.join(id);
 
-   			socket.emit('joinedRoom', id)
+   			socket.emit('validRoom', id)
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
 
    			//any other room get stuff.
 
    		} else {
-			socket.emit('joinedRoomErr', "Room does not exist")
+			socket.emit('invalidRoom', "Room does not exist")
    		}
 	});
 

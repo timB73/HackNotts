@@ -31,7 +31,12 @@
 					<div class="form-group" id="createOrJoin-form" hidden>
 
 						<button class="btn btn-default btn-block" id="createRoom">Create</button>
-						<button class="btn btn-default btn-block" id="joinRoom">Join</button>
+
+						<form>
+							<button type="submit" class="btn btn-default btn-block" id="joinRoom">Join</button>
+							<input type="text" class="form-control" id="joinRoomId" style="display:none;" placeholder="Room id/link" autocomplete="off">
+							<p id="join-error-msg" ></p>
+						</form>
 					</div>
 				</div>
 			</div>

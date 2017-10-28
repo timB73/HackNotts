@@ -19,14 +19,21 @@
 	display: none;
 }
 
-.button:visited {
+.btn:visited {
     color: #333 !important;
     background-color: #fff !important;
     border-color: #ccc !important;
 }
-    
+  
 
 #error-msg {
 	color: red;
 	margin-top: 15px;
 }
+
+#join-error-msg {
+	text-align:center;
+	margin-top: 10px;
+	color:red;
+}
+

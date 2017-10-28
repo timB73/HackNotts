@@ -12,16 +12,36 @@ $(function(){
 	$('#createRoom').click(function(){
 		socket.emit('createRoom');
 
-
-
 		return false;
 
 	});
 
 	socket.on('createdRoom', function(id){
-		alert(id);
+		window.location.href="whiteboard.html?id="+id;
 	});
 
+	$('#joinRoom').click(function(){
+		var vis = $('#joinRoomId').is(":visible")
+		if(!vis){
+			$('#joinRoomId').fadeIn()
+		} else {
+			socket.emit('joinRoom', $('#joinRoomId').val());
+		}
+		return false;
+
+	});
+
+	socket.on('validRoom', function(id){
+		window.location.href="whiteboard.html?id="+id;
+	});
+
+	socket.on('invalidRoom', function(err){
+		$('#join-error-msg').text(err);
+		setTimeout(function() {
+			$("#join-error-msg").fadeOut();
+		}, 2000);
+
+	});
 
 	socket.on('invalidName', function(err){
 		$('#error-msg').text(err);
