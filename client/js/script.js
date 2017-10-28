@@ -11,6 +11,10 @@ $(function(){
 
 	socket.on('invalidName', function(err){
 		$('#error-msg').text(err);
+		$("#error-msg").show();
+		setTimeout(function() {
+			$("#error-msg").fadeOut();
+		}, 2000);
 	});
 
 	socket.on('validName', function(valName){
