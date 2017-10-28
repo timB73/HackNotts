@@ -9,6 +9,20 @@ $(function(){
 		return false;
 	});
 
+	$('#createRoom').click(function(){
+		socket.emit('createRoom');
+
+
+
+		return false;
+
+	});
+
+	socket.on('createdRoom', function(id){
+		alert(id);
+	});
+	
+
 	socket.on('invalidName', function(err){
 		$('#error-msg').text(err);
 		$("#error-msg").show();
@@ -19,7 +33,11 @@ $(function(){
 
 	socket.on('validName', function(valName){
 		name = valName;
-		alert("Name "+name+" accepted.");
+		$('#username-form').fadeOut();
+		$('#username-corner').text(name);
+		setTimeout(function(){
+			$('#createOrJoin-form').fadeIn();
+		}, 500);
 	});
 
 
