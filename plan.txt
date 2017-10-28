@@ -15,7 +15,7 @@ Extras:
 
 Websockets:
 - Coordinates stream through sockets and JS creates the lines based on
-coordinates.
+coordinates
 -
 
 
