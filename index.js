@@ -90,7 +90,7 @@ io.on('connection', function(socket){
 	socket.on('initDraw', function(type){
 		id = data[id]
 		switch(type){
-			case 1,
+			case 1:
 
 			break
 		}
