@@ -1,4 +1,5 @@
 var name = "";
+var userCol = "";
 $(function(){
 
 	// tmp set username
@@ -55,8 +56,8 @@ $(function(){
 		}, 2000);
 	});
 
-	socket.on('validName', function(valName){
-		name = valName;
+	socket.on('validName', function(col){
+		userCol = col;
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
 		setTimeout(function(){
