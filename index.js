@@ -5,6 +5,8 @@ var io = require('socket.io')(http);
 
 var users = {};
 
+var data = {};
+
 function makeid() {
 	var text = "";
 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -64,7 +66,7 @@ io.on('connection', function(socket){
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
 
-   			//any other room get stuff.
+   			(data[id].users).push(name);
 
    		} else {
 			socket.emit('invalidRoom', "Room does not exist")
@@ -80,9 +82,19 @@ io.on('connection', function(socket){
    		socket.join(id);
    		socket.emit('createdRoom', id)
 
-   		//some room init stuff
+   		data[id] = {users:[name], drawInfo:[]};
 	});
 
+	//draw handling
+
+	socket.on('initDraw', function(type){
+		id = data[id]
+		switch(type){
+			case 1,
+
+			break
+		}
+	});
 });
 
 http.listen(3000, function(){

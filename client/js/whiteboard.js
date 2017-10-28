@@ -31,7 +31,7 @@ $(document).ready(function() {
     whiteboard.mousemove(function(evt){
         var pos = getMousePos(whiteboard, evt);
         if(mouseDown){
-
+            
         }
     });
 
