@@ -58,6 +58,7 @@ $(function(){
 
 	socket.on('validName', function(col){
 		userCol = col;
+		$('#whiteboard-bar').css("background-color", userCol);
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
 		setTimeout(function(){

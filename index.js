@@ -131,7 +131,7 @@ io.on('connection', function(socket){
 
 	//chat handling
 
-	socket.on('sendMsg'function(data){
+	socket.on('sendMsg', function(data){
 		var sendObj = {sender:name, msg:data, colour:col}
 		socket.broadcast.emit('receiveMsg', JSON.stringify(sendObj));
 	});
