@@ -35,5 +35,23 @@ $(document).ready(function() {
 		$("#chat-messages-list").append("<li style='color: red;'>" + msg + "</li>");
 	});
 
+	$("#chat-minimize").click(function() {
+
+		if($("#chat").is(":visible")) {
+			document.getElementById("chat-minimize").className = "fa fa-window-maximize";
+			$("#chat-minimize").prop("title", "Maximize chat");
+			$("#chat-messages-list").hide();
+			$("#whiteboard").animate({width: "100%"}, 500);
+			$("#chat").animate({width: "0%"}, 500);
+			$("#chat").hide();
+		}else {
+			document.getElementById("chat-minimize").className = "fa fa-window-minimize";
+			$("#chat-minimize").prop("title", "Minimize chat");
+			$("#whiteboard").animate({width: "80%"}, 500);
+			$("#chat").show();
+			$("#chat").animate({width: "20%"}, 500);
+			$("#chat-messages-list").fadeIn();
+		}
+	});
 
 });

@@ -103,7 +103,7 @@ html, body {
     left: 6px;
 }
 
-#minimize-chat {
+#chat-minimize {
 	float: right;
 	margin: 10px;
 	cursor: pointer;
