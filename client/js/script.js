@@ -21,7 +21,7 @@ $(function(){
 	socket.on('createdRoom', function(id){
 		alert(id);
 	});
-	
+
 
 	socket.on('invalidName', function(err){
 		$('#error-msg').text(err);
@@ -36,7 +36,7 @@ $(function(){
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
 		setTimeout(function(){
-			$('#createOrJoin-form').fadeIn();
+			$('#createOrJoin-form, #username-corner').fadeIn();
 		}, 500);
 	});
 
