@@ -8,7 +8,7 @@ $(document).ready(function() {
 		}
 		$(".user-online").remove();
 		for(var i = 0; i < online.length; i++) {
-			$("#users-online").append("<option class='user-online'>" + online[i] + "</option>");
+			$("#users-online").append("<option class='user-online' disabled>" + online[i] + "</option>");
 		}
 
 	});
