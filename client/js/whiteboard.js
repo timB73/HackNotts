@@ -49,7 +49,7 @@ $(document).ready(function() {
             if(drawPoints.length != 0) {
                 drawLine(drawPoints[drawPoints.length-1], pos);
             }
-            
+
         }
         drawPoints.push(pos);
         localDrawInfo[tmpDrawId].points = drawPoints;
@@ -71,6 +71,7 @@ $(document).ready(function() {
         var data = JSON.parse(data);
         draw(data.type, data.id, data.pos);
     });
+
 
 });
 
