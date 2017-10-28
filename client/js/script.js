@@ -40,6 +40,7 @@ $(function(){
 
 	socket.on('invalidRoom', function(err){
 		$('#join-error-msg').text(err);
+		$('#join-error-msg').show();
 		setTimeout(function() {
 			$("#join-error-msg").fadeOut();
 		}, 2000);
@@ -62,7 +63,7 @@ $(function(){
 			var url = window.location.href;
 			var whiteboardID = findGetParameter("id");
 			if(whiteboardID !== null){
-				showWhiteboard()
+				socket.emit('joinRoom', whiteboardID);
 			} else {
 				$('#createOrJoin-form, #username-corner').fadeIn();
 			}
