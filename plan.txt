@@ -24,3 +24,17 @@ Database design:
 
 coordinates
 PK: ID of line
+
+for whiteboard
+	toolbars, player list etc on one page, with iframe to whiteboard page
+	whiteboard page is purely for drawing, can pass the username, etc. via post/url
+		this removes drawing outside of range or whatever
+		can put any other element on top of iframe, so the iframe wont get the click event, and wont draw.
+		
+		
+
+whos doin what:
+	tim 	technical shizzle &/| graphical shizzle
+	sam 	technical shizzle
+	inigo	whatever he feels like doin :)
+	julian	graphical design
