@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var users = {}
+var users = {};
 
 
 app.get('/', function(req, res){
@@ -12,8 +12,9 @@ app.get('/', function(req, res){
 
 
 io.on('connection', function(socket){
-
-	socket.on('setUsername', function(name){
+	var name = ""
+	socket.on('setUsername', function(nick){
+		name = nick;
 		if(users[name]){
 			socket.emit('invalidName', "Username taken.");
 		} else if(name.trim() == "") {
@@ -30,4 +31,8 @@ io.on('connection', function(socket){
 		delete users[name];
 	});
 
+});
+
+http.listen(3000, function(){
+  	console.log('listening on *:3000');
 });
