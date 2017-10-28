@@ -1,3 +1,7 @@
+#whiteboard-row {
+	display: none;
+}
+
 #whiteboard {
 	background-image: url("images/background.jpeg");
 	border: 1px solid red;

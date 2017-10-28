@@ -12,6 +12,7 @@ $(function(){
 	$('#createRoom').click(function(){
 		socket.emit('createRoom');
 
+		$("#whiteboard-row").show();
 		return false;
 
 	});
@@ -27,6 +28,8 @@ $(function(){
 		} else {
 			socket.emit('joinRoom', $('#joinRoomId').val());
 		}
+		
+		$("#whiteboard-row").show();
 		return false;
 
 	});
