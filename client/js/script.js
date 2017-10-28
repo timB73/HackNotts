@@ -12,12 +12,11 @@ $(function(){
 	$('#createRoom').click(function(){
 		socket.emit('createRoom');
 		return false;
-
 	});
 
 	socket.on('createdRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
-		$("#whiteboard-row").show();
+		showWhiteboard();
 	});
 
 	$('#joinRoom').click(function(){
@@ -33,7 +32,7 @@ $(function(){
 
 	socket.on('validRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
-		$("#whiteboard-row").show();
+		showWhiteboard();
 	});
 
 	socket.on('invalidRoom', function(err){

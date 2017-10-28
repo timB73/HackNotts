@@ -3,9 +3,9 @@ $(document).ready(function() {
 
 
 	var url = window.location.href;
-	var name = findGetParameter("name");
-	if(name === null) {
-		name = prompt("Enter a username", "");
+	var whiteboardID = findGetParameter("id");
+	if(whiteboardID !== null) {
+		showWhiteboard();
 	}
 	socket.emit("setUsername", name);
 
@@ -19,6 +19,7 @@ $(document).ready(function() {
 	$("#whiteboard").mousedown(function() {
 
 	});
+
 
 
 
@@ -36,3 +37,9 @@ $(document).ready(function() {
 	}
 
 });
+
+function showWhiteboard() {
+	$("#createOrJoin-form, #username-corner").fadeOut(function() {
+		$("#whiteboard-row").fadeIn();
+	});
+}
