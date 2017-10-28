@@ -49,6 +49,7 @@ $(function(){
 
 	socket.on('invalidRoom', function(err){
 		$('#join-error-msg').text(err);
+		console.log(err);
 		$('#join-error-msg').show();
 		setTimeout(function() {
 			$("#join-error-msg").fadeOut();
