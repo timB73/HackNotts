@@ -11,6 +11,14 @@
 
 }
 
+#joinRoomId {
+	margin-top: 4px;
+}
+
+#createRoom {
+	margin-bottom: 10px;
+}
+
 #username-corner {
 	position: absolute;
 	top: -10px;
@@ -24,7 +32,7 @@
     background-color: #fff !important;
     border-color: #ccc !important;
 }
-  
+
 
 #error-msg {
 	color: red;
@@ -36,4 +44,3 @@
 	margin-top: 10px;
 	color:red;
 }
-
