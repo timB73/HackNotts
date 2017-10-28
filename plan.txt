@@ -15,7 +15,7 @@ Extras:
 
 Websockets:
 - Coordinates stream through sockets and JS creates the lines based on
-coordinates.
+coordinates
 -
 
 
@@ -40,10 +40,10 @@ on load
 	username itself moves to top right or something, then page loads
 next page:
 	create : creates a page with a unique id, requested from the server
-	join : 
-		
+	join :
+
 chat rooms with hosts and clients
-	host creates the room most likely with unique ID in url or something idk		
+	host creates the room most likely with unique ID in url or something idk
 
 whos doin what:
 	tim 	technical shizzle &/| graphical shizzle
