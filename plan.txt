@@ -5,6 +5,11 @@ Login screen
 
 Basic design:
 > Paper background by default - Allow users to link to an image URL to change this
+    >> Possible backgrounds (might need some editing):
+        https://www.pexels.com/photo/blank-close-up-crumpled-crumpled-paper-479453/
+        https://www.pexels.com/photo/background-cement-concrete-paint-242236/
+        https://www.pexels.com/photo/white-printer-paper-near-white-ceramic-mug-164642/
+        
 > Modular design (Toolbar to the left of the whiteboard)
     >> Colour switcher
     >> Lines
