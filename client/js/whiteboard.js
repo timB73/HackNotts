@@ -1,4 +1,5 @@
 var whiteboard = document.getElementById("whiteboard");
+var drawId = null;
 $(document).ready(function() {
 
     var tool = 1;
@@ -52,15 +53,22 @@ $(document).ready(function() {
         drawId = id;
     });
 
+    socket.on("drawPoint", function(pos) {
+        var data = JSON.parse(pos);
+        drawLine(pos.start, pos.end, true);
+    });
 
 });
 
-function drawLine(start,end){
+function drawLine(start,end, receiving){
     var ctx = whiteboard.getContext("2d");
     ctx.beginPath();
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
     ctx.stroke();
+    if(typeof receiving == 'undefined') {
+        socket.emit("drawPoint", JSON.stringify({start: start, end: end}));
+    }
 }
 
 function getMousePos(canvas, evt) {
