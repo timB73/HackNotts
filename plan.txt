@@ -25,11 +25,6 @@ Extras design:
 
 Programming design:
     > General flow
-<<<<<<< HEAD
-        1. Enter username
-            - If their username is  not taken, store it in database
-        2.
-=======
         1. Display the "Enter username screen"
             - If their username is not already taken, store it. Otherwise, show an error message and clear the entry box.
             - Generate a random colour for the user (RGB values in HEX)
@@ -38,7 +33,6 @@ Programming design:
             - If they click the create button:
                 - Display
         3.
->>>>>>> 1ad5108e92f323f7b29065d16b27be377e7c273c
 
 
 Websockets:
