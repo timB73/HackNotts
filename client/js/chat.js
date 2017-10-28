@@ -6,11 +6,11 @@ $(document).ready(function() {
 		if(index > -1) {
 			online.splice(index, 1);
 		}
-
+		$("#users-online").empty();
 		for(var i = 0; i < online.length; i++) {
 			$("#users-online").append("<option>" + online[i] + "</option>");
 		}
 
-		
+
 	});
 });

@@ -58,6 +58,20 @@ html, body {
     padding: 0;
 }
 
+#code-wrap {
+	display: inline-block;
+}
+
+#code-txt {
+	text-align: center;
+}
+
+#copy-code-error {
+	display: inline;
+	font-style: italic;
+	margin-right: 10px;
+}
+
 #toolbar {
 	position: absolute;
     top: 0;
