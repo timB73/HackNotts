@@ -79,6 +79,8 @@ io.on('connection', function(socket){
 
 	function sendPlys() {
 		console.log(socket.rooms);
+		console.log(data);
+		console.log(id);
 		var users = data[id].users;
 		io.emit('usersOnline', JSON.stringify(users));
 		
@@ -105,6 +107,7 @@ io.on('connection', function(socket){
 		data[id].drawInfo[drawId] = {type:type, points:[]}
 		socket.emit('initDrawId', drawId);
 	});
+
 });
 
 http.listen(3000, function(){
