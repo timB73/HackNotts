@@ -10,6 +10,25 @@ $(document).ready(function() {
 
 });
 
+function copyToClipboard(text) {
+    var $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val(text).select();
+    var msg;
+    try {
+        var successful = document.execCommand('copy');
+        msg = successful ? 'Copied' : 'Unable to copy :(';
+        
+    } catch (err) {
+        msg = 'Unable to copy :(';
+
+    }
+
+    return msg;
+
+    $temp.remove();
+}
+
 function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
