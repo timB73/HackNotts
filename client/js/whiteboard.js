@@ -1,7 +1,14 @@
 $(document).ready(function() {
 
 
-
+    $('#code-code').click(function(){
+        var ret = copyToClipboard(findGetParameter("id"));
+        $('#code-code-error').text(ret);
+        $('#code-code-error').show()
+        setTimeout(function(){
+            $('#code-txt-error').fadeOut();
+        }, 2000);
+    });
 
 
 	$("#whiteboard").mousedown(function() {

@@ -35,6 +35,7 @@ $(function(){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
 		window.history.pushState({}, '', '?id='+id);
 		showWhiteboard();
+		$('#code-txt').text(findGetParameter("id"));
 	});
 
 	socket.on('invalidRoom', function(err){
