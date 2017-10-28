@@ -73,6 +73,12 @@ io.on('connection', function(socket){
    		}
 	});
 
+	socket.on('getUsersInRoom', function(){
+		var users = data[socket.rooms[0]].users;
+		socket.emit('usersOnline', JSON.stringify(users));
+		
+	});
+
 	socket.on('createRoom', function(){
 		do {
 			id = makeid()
@@ -88,12 +94,9 @@ io.on('connection', function(socket){
 	//draw handling
 
 	socket.on('initDraw', function(type){
-		id = data[id]
-		switch(type){
-			case 1:
-
-			break
-		}
+		drawId = data[id].drawInfo.length;
+		data[id].drawInfo[drawId] = {type:type, points:[]}
+		socket.emit('initDrawId', drawId);
 	});
 });
 
