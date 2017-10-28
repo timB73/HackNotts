@@ -23,8 +23,10 @@ Extras design:
 
 
 Programming design:
-> Username entry
-    >> Once the user has pressed enter/clicked a submit 
+    > General flow
+        1. Enter username
+            - If their username is
+        2.
 
 
 Websockets:
