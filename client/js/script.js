@@ -17,6 +17,7 @@ $(function(){
 	socket.on('createdRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
 		showWhiteboard();
+		window.history.pushState({}, '', '?id='+id);
 	});
 
 	$('#joinRoom').click(function(){
@@ -32,6 +33,7 @@ $(function(){
 
 	socket.on('validRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
+		window.history.pushState({}, '', '?id='+id);
 		showWhiteboard();
 	});
 
@@ -56,7 +58,13 @@ $(function(){
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
 		setTimeout(function(){
-			$('#createOrJoin-form, #username-corner').fadeIn();
+			var url = window.location.href;
+			var whiteboardID = findGetParameter("id");
+			if(whiteboardID !== null){
+				showWhiteboard()
+			} else {
+				$('#createOrJoin-form, #username-corner').fadeIn();
+			}
 		}, 500);
 	});
 
