@@ -35,7 +35,7 @@ $(document).ready(function() {
         }
     });
 
-	
+
 
 });
 
@@ -55,7 +55,7 @@ function copyToClipboard(text) {
     try {
         var successful = document.execCommand('copy');
         msg = successful ? 'Copied' : 'Unable to copy :(';
-        
+
     } catch (err) {
         msg = 'Unable to copy :(';
 
