@@ -61,7 +61,7 @@ $(function(){
 			var url = window.location.href;
 			var whiteboardID = findGetParameter("id");
 			if(whiteboardID !== null){
-				showWhiteboard()
+				socket.emit('joinRoom', whiteboardID);
 			} else {
 				$('#createOrJoin-form, #username-corner').fadeIn();
 			}
