@@ -1,5 +1,5 @@
+var socket = io();
 $(function(){
-	var socket = io();
 	var name = "";
 
 	// tmp set username

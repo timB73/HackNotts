@@ -96,3 +96,10 @@ html, body {
 	margin: 10px;
 	cursor: pointer;
 }
+
+#chat-msg {
+	position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 7px;
+}
