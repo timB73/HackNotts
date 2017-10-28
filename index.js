@@ -18,7 +18,7 @@ function makeid() {
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/client/index.html');
-	res.sendFile(__dirname + '/client/whiteboard.html');
+	//res.sendFile(__dirname + '/client/whiteboard.html');
 	app.use(express.static(__dirname + '/client'));
 });
 
