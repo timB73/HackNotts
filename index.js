@@ -66,9 +66,11 @@ io.on('connection', function(socket){
    			socket.emit('validRoom', id)
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
-   			sendPlys();
+   			
 
    			(data[id].users).push(name);
+
+   			sendPlys();
 
    		} else {
 			socket.emit('invalidRoom', "Room does not exist")
@@ -76,7 +78,8 @@ io.on('connection', function(socket){
 	});
 
 	function sendPlys() {
-		var users = data[socket.rooms[0]].users;
+		console.log(socket.rooms);
+		var users = data[id].users;
 		io.emit('usersOnline', JSON.stringify(users));
 		
 	}
@@ -91,6 +94,8 @@ io.on('connection', function(socket){
    		socket.emit('createdRoom', id)
 
    		data[id] = {users:[name], drawInfo:[]};
+
+   		sendPlys();
 	});
 
 	//draw handling
