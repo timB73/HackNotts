@@ -44,13 +44,21 @@
 
 			<div id="whiteboard-row">
 				<div id="topbar">
-					<div id="nickname"></div>
-					<div id="link"></div>
-				</div>
-				<div id="whiteboard">
-					<div id="toolbar"></div>
+
+					<div id="whiteboard-bar">
+						<div id="nickname"></div>
+						<div id="link-wrap">
+							<div id="copy-code-error"></div>
+							<button id="copy-code">Copy to clipboard</button>
+							<input type="text" id="code-txt" readonly/>
+						</div>
+					</div>
 
 				</div>
+				<div id="toolbar"></div>
+				<canvas id="whiteboard">
+
+				</canvas>
 
 				<div id="chat">
 

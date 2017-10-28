@@ -23,15 +23,39 @@ html, body {
     height: 30px;
     position: absolute;
     background-color: green;
-    left: 0;
+    left: 0px;
 }
 
 #nickname {
-	width: 70%;
+	width: 182px;
+    display: inline-block;
+    height: 100%;
+    background-color: blue;
+    position: absolute;
+    left: 50px;
+    top: 0px;
+    bottom: 0px;
 }
 
-#link {
-	width: 30%;
+#whiteboard-bar {
+	width: 80%;
+    display: inline-block;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background-color: yellow;
+}
+
+#link-wrap {
+	width: auto;
+    display: inline-block;
+    margin: 0;
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    bottom: 0px;
+    padding: 0;
 }
 
 #toolbar {
@@ -41,6 +65,7 @@ html, body {
     bottom: 0;
     width: 50px;
     background-color: lightgray;
+	z-index: 2;
 }
 
 #chat {
