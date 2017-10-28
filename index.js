@@ -5,6 +5,17 @@ var io = require('socket.io')(http);
 
 var users = {};
 
+function makeid() {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	for (var i = 0; i < 5; i++)
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
+}
+
+
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/client/index.html');
 	app.use(express.static(__dirname + '/client'));
@@ -47,16 +58,17 @@ io.on('connection', function(socket){
    		}
 	});
 
-	socket.on('createRoom', function(id){
-		var nsp = io.nsps['/'].adapter.rooms[id];
-		if(!nsp){
-   			socket.join(id);
-   			socket.emit('createRoom', id)
+	socket.on('createRoom', function(){
+		do {
+			id = makeid()
+			var nsp = io.nsps['/'].adapter.rooms[id];
+		} while(nsp);
 
-   			//some room init stuff
+   		socket.join(id);
+   		socket.emit('createdRoom', id)
 
-   		} else {
-			socket.emit('createRoomErr', "Room already exists")
+   		//some room init stuff
+
    		}
 	});
 
