@@ -3,6 +3,8 @@ $(document).ready(function() {
     var tool = 1;
     var toolNames = ["Freeform line"];
 
+    var freeformLastPost = null;
+
     $('#copy-code').click(function(){
         var ret = copyToClipboard(findGetParameter("id"));
         $('#copy-code-error').text(ret);
@@ -19,6 +21,7 @@ $(document).ready(function() {
     whiteboard.mousedown(function(){
         if(mouseDown == 0){
             socket.emit('initDraw', tool);
+            freeformLastPos = null;
             drawStatus = "pending";
         }
         ++mouseDown;
@@ -29,15 +32,24 @@ $(document).ready(function() {
     })
 
     whiteboard.mousemove(function(evt){
+
         var pos = getMousePos(document.getElementById("whiteboard"), evt);
         if(mouseDown){
             socket.emit('drawPoint', JSON.stringify(pos));
+            if(tool == 1){
+                drawLine(freeformLastPos, pos);
+                freeformLastPos = pos;
+            }
         }
     });
 
 
 
 });
+
+function drawLine(start,end){
+    
+}
 
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
