@@ -43,6 +43,7 @@ io.on('connection', function(socket){
 
 	socket.on('disconnect', function(){
 		io.emit('userLeave', name);
+		console.log("discon");
 		delete users[name];
 	});
 

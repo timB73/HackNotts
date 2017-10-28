@@ -17,7 +17,7 @@ $(function(){
 	});
 
 	socket.on('createdRoom', function(id){
-		window.location.href="whiteboard.html?id="+id;
+		window.location.href="whiteboard.html?id="+id+"&name="+name;
 	});
 
 	$('#joinRoom').click(function(){
@@ -32,7 +32,7 @@ $(function(){
 	});
 
 	socket.on('validRoom', function(id){
-		window.location.href="whiteboard.html?id="+id;
+		window.location.href="whiteboard.html?id="+id+"&name="+name;
 	});
 
 	socket.on('invalidRoom', function(err){
