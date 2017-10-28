@@ -1,5 +1,5 @@
+var name = "";
 $(function(){
-	var name = "";
 
 	// tmp set username
 	$('#user-submit').click(function(){
