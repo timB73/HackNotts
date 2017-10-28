@@ -6,8 +6,8 @@ $(document).ready(function() {
 	var name = findGetParameter("name");
 	if(name === null) {
 		name = prompt("Enter a username", "");
-		socket.emit("setUsername", name);
 	}
+	socket.emit("setUsername", name);
 
 
 	socket.on("invalidName", function(err) {
