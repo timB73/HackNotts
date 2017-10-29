@@ -3,7 +3,7 @@ var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
 var tool = 1;
-var toolNames = [["Freeform line","001-random-line.png"]];
+var toolNames = [["Freeform line","001-random-line.png"], ["Straight line", "002-substract.png"], []];
 
 $(document).ready(function() {
 

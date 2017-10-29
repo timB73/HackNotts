@@ -45,13 +45,14 @@ html, body {
     display: block;
     height: 35px;  
     width: 35px;
-    position:absolute;
+    position:relative;
 }
 
 #close-image {
     padding: 0;
     margin: 0;
     vertical-align: top;
+    position:absolute;
 }
 
 
