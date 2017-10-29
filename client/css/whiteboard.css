@@ -151,6 +151,15 @@ html, body {
     margin-left: 8px;
 }
 
+#toolbar-brushWidth {
+	position: absolute;
+	bottom: 20%;
+	width: 50px;
+}
+
+#brush-width {
+	width: 50px;
+}
 #logout, #refresh, #blank {
 	cursor: pointer;
 	margin-right: 10px;

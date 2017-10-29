@@ -226,6 +226,7 @@ function drawLine(start,end){
 
     ctx.beginPath();
     ctx.strokeStyle = penColour;
+    ctx.lineWidth = Number($("#brush-width").val());
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
     ctx.stroke();
@@ -236,6 +237,7 @@ function drawRect(start,end){
     var size = {x:end.x-start.x,y:end.y-start.y};
     ctx.beginPath();
     ctx.strokeStyle = penColour;
+    ctx.lineWidth = Number($("#brush-width").val());
     ctx.rect(start.x,start.y,size.x,size.y);
     ctx.stroke();
 }
@@ -251,6 +253,7 @@ function drawCircle(start,end){
 
     ctx.beginPath();
     ctx.strokeStyle = userCol;
+    ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.stroke()
 }
@@ -260,6 +263,7 @@ function drawFillCircle(start,end){
 
     ctx.beginPath();
     ctx.strokeStyle = userCol;
+    ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.fillStyle = 'black';
     ctx.fill();

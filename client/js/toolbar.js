@@ -9,7 +9,7 @@ $(document).ready(function() {
 			$(this).css("background-color", "#AAAAAA");
 			console.log(tool);
 		});
-		$('#toolbar').append($button);
+		$('#toolbar-main').append($button);
 	}
-});
 
+});
