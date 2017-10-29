@@ -109,7 +109,6 @@ io.on('connection', function(socket){
 	}
 
 	socket.on("doesRoomExist", function(id){
-		console.log(id);
 		if(!data[id]){
 			socket.emit("roomExists", 0);
 		}else {
@@ -145,7 +144,6 @@ io.on('connection', function(socket){
 
 	socket.on('drawPoint', function(funcData){
 		socket.broadcast.to(roomId).emit('drawPoint', funcData);
-		console.log(funcData);
 		funcData = JSON.parse(funcData);
 		drawPoints = data[roomId].drawInfo[funcData.id].points;
 		drawPoints.push(funcData.pos);
