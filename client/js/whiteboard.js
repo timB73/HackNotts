@@ -95,8 +95,6 @@ $(document).ready(function() {
         draw(data.type, data.id, data.pos);
     });
 
-
-
 	$("#refresh").click(function() {
         socket.emit("fullDataRequest");
 	});
@@ -104,6 +102,7 @@ $(document).ready(function() {
 	$("#logout").click(function() {
         sessionStorage.clear();
         window.history.pushState({}, '', '?');
+        location.reload();
 	});
 
 });
