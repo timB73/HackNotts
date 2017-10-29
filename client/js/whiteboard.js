@@ -254,6 +254,7 @@ function drawRect(start,end){
 
 function drawFillRect(start,end){
     var size = {x:end.x-start.x,y:end.y-start.y}
+    ctx.beginPath();
     ctx.fillRect(start.x,start.y,size.x,size.y);
     ctx.stroke();
 }
@@ -262,6 +263,7 @@ function drawCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
+
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.stroke()
 }
@@ -271,7 +273,7 @@ function drawFillCircle(start,end){
 
     ctx.beginPath();
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
-    ctx.fillStyle = penColour;
+    ctx.fillStyle = ctx.strokeStyle;
     ctx.fill();
     ctx.stroke()
 }
