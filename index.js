@@ -160,9 +160,8 @@ io.on('connection', function(socket){
     // Write the session data into the variables (page refresh)
     socket.on("writeSessionData", function(sessionData) {
         sessionData = JSON.parse(sessionData);
-
-        users[sessionData.name] = socket;
-
+        name = sessionData.name;
+        users[name] = socket;
 
     });
 

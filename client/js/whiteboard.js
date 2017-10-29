@@ -3,7 +3,7 @@ var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
 var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Text", "006-text-height-adjustment.png"]];
-var tool = 1;
+var tool = 0;
 
 $(document).ready(function() {
 
@@ -49,7 +49,7 @@ $(document).ready(function() {
 
     function draw(type, tmpDrawId, pos){
         drawPoints = localDrawInfo[tmpDrawId].points;
-        if(type == 1){
+        if(type == 0){
             if(drawPoints.length != 0) {
                 drawLine(drawPoints[drawPoints.length-1], pos);
             }
@@ -95,6 +95,16 @@ $(document).ready(function() {
         draw(data.type, data.id, data.pos);
     });
 
+
+
+	$("#refresh").click(function() {
+        socket.emit("fullDataRequest");
+	});
+
+	$("#logout").click(function() {
+        sessionStorage.clear();
+        window.history.pushState({}, '', '?');
+	});
 
 });
 
