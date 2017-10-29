@@ -1,4 +1,5 @@
 var whiteboard = document.getElementById("whiteboard");
+var ctx = whiteboard.getContext("2d");
 var drawId = null;
 $(document).ready(function() {
 
@@ -55,11 +56,26 @@ $(document).ready(function() {
         localDrawInfo[tmpDrawId].points = drawPoints;
     }
 
+    socket.on('fullData', function(data){
+        data = JSON.parse(data);
+        ctx.clearRect(0, 0, whiteboard.width, whiteboard.height);
+        for(var i=0; i<data.length;i++){
+            var element = data[i];
+            var points = element.points;
+            localDrawInfo[i] = {type:element.type, points:[]}
+            for(var p = 0; p<points.length;p++){
+                draw(element.type, i, points[p]);
+            }
+        }
+        console.log(localDrawInfo);
+    });
+
     socket.on('initDrawId', function(data){
         data = JSON.parse(data);
-        drawId = data.id;
+        
         if(data.name == name){
             drawStatus = "drawing";
+            drawId = data.id;
             type = tool;
         } else {
             type = data.type;
@@ -75,7 +91,7 @@ $(document).ready(function() {
 });
 
 function drawLine(start,end){
-    var ctx = whiteboard.getContext("2d");
+    
     ctx.beginPath();
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);

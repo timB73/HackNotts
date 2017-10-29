@@ -90,6 +90,8 @@ io.on('connection', function(socket){
 
    			io.to(roomId).emit('serverMsg', name+" has joined the room.");
 
+   			socket.emit('fullData', JSON.stringify(data[roomId].drawInfo));
+
    		} else {
 			socket.emit('invalidRoom', "Room does not exist")
    		}
@@ -134,12 +136,17 @@ io.on('connection', function(socket){
 		io.to(roomId).emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 
-	socket.on('drawPoint', function(data){
-		socket.broadcast.to(roomId).emit('drawPoint', data);
-		data = JSON.parse(data);
-		drawPoints = data[roomId].drawInfo[data.id].points;
-		drawPoints.push(data.pos);
-		data[roomId].drawInfo[data.id].points = drawPoints;
+	socket.on('drawPoint', function(funcData){
+		socket.broadcast.to(roomId).emit('drawPoint', funcData);
+		console.log(funcData);
+		funcData = JSON.parse(funcData);
+		drawPoints = data[roomId].drawInfo[funcData.id].points;
+		drawPoints.push(funcData.pos);
+		data[roomId].drawInfo[funcData.id].points = drawPoints;
+	});
+
+	socket.on('fullDataRequest', function(){
+		socket.emit('fullData', JSON.stringify(data[roomId].drawInfo));
 	});
 
 
