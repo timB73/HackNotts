@@ -27,7 +27,7 @@ html, body {
 }
 
 #nickname {
-	width: 182px;
+	width: auto;
     display: inline-block;
     height: 100%;
     position: absolute;
@@ -39,6 +39,19 @@ html, body {
 #nickname p {
 	font-size: 20px;
 	margin: 6px;
+}
+
+#close-image img {
+    display: block;
+    height: 35px;  
+    width: 35px;
+    position:absolute;
+}
+
+#close-image {
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
 }
 
 
