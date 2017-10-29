@@ -42,10 +42,10 @@ $(document).ready(function() {
             if(tool != 0){
 
                 switch(tool){
-                    case 1:
+                    case 1: // straight line
                         drawLine(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
@@ -55,8 +55,8 @@ $(document).ready(function() {
                         var b = localDrawInfo[drawId].points[1];
                         var min = {x:Math.min(a.x,b.x),y:Math.min(a.y,b.y)};
                         var max = {x:Math.max(a.x,b.x),y:Math.max(a.y,b.y)};
-                        var sendData1 = {pos: min, type:tool, id:drawId}
-                        var sendData2 = {pos: max, type:tool, id:drawId}
+                        var sendData1 = {pos: min, type:tool, id:drawId, colour: penColour};
+                        var sendData2 = {pos: max, type:tool, id:drawId, colour: penColour};
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
 
@@ -69,15 +69,15 @@ $(document).ready(function() {
 
                     case 5:
                         drawCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
                     case 6:
                         drawFillCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
@@ -94,7 +94,7 @@ $(document).ready(function() {
 
     $("#whiteboard").mousemove(function(evt){
         var pos = getMousePos(document.getElementById("whiteboard"), evt)
-        var sendData = {pos: pos, id: drawId, type:tool};
+        var sendData = {pos: pos, id: drawId, type:tool, colour: penColour};
         if(mouseDown && drawStatus == "drawing"){
             if(tool == 0){
                 socket.emit('drawPoint', JSON.stringify(sendData));
@@ -129,7 +129,7 @@ $(document).ready(function() {
         for(var i=0; i<data.length;i++){
             var element = data[i];
             var points = element.points;
-            localDrawInfo[i] = {type:element.type, points:[]}
+            localDrawInfo[i] = {type:element.type, points:[], colour: element.colour}
             for(var p = 0; p<points.length;p++){
                 draw(element.type, i, points[p]);
             }
@@ -265,7 +265,7 @@ function drawFillCircle(start,end){
     ctx.strokeStyle = userCol;
     ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = penColour;
     ctx.fill();
     ctx.stroke()
 }
