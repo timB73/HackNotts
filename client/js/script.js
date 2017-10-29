@@ -1,6 +1,13 @@
 var name = "";
 var userCol = "";
 $(function(){
+
+	if(sessionStorage.getItem("userData") != null) {
+		var userData = JSON.parse(sessionStorage.getItem("userData"));
+		name = userData.name;
+		userCol = userData.colour;
+	}
+
 	var tmpId = findGetParameter("id");
 	if(tmpId){
 		socket.emit("doesRoomExist", tmpId);
@@ -37,6 +44,7 @@ $(function(){
 
 	});
 	socket.on("roomNotExist", function(){
+		sessionStorage.clear();
 		window.history.pushState({}, '', '?');
 	});
 
@@ -72,7 +80,7 @@ $(function(){
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
 		$("#nickname-val").text(name);
-
+		sessionStorage.setItem("userData", JSON.stringify({name: name, colour: userCol}));
 		setTimeout(function(){
 			var url = window.location.href;
 			var whiteboardID = findGetParameter("id");
