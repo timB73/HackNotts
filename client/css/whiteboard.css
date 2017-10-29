@@ -38,12 +38,13 @@ html, body {
 
 #nickname p {
 	font-size: 20px;
-	margin: 6px;
+    margin: 6px;
+    display: inline;
 }
 
 #close-image img {
     display: block;
-    height: 35px;  
+    height: 35px;
     width: 35px;
     position:relative;
 }
@@ -139,3 +140,20 @@ html, body {
 #chat-messages-list {list-style-type: none; margin: 0; padding: 0;}
 #chat-messages-list li { padding: 5px 10px; }
 #chat-messages-list li:nth-child(odd) { background: #eee; }
+
+#control-btns {
+	display: inline-block;
+    /* z-index: 10; */
+    /* float: right; */
+    position: relative;
+    top: 3px;
+    margin-left: 8px;
+}
+
+#logout {
+	margin-right: 10px;
+}
+
+#logout, #refresh {
+	cursor: pointer;
+}
