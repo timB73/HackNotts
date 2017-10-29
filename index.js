@@ -138,9 +138,12 @@ io.on('connection', function(socket){
 
 	//draw handling
 
-	socket.on('initDraw', function(type){
+	socket.on('initDraw', function(funcData){
+		funcData = JSON.parse(funcData);
+		var type = funcData.type;
+		var col = funcData.colour;
 		drawId = data[roomId].drawInfo.length;
-		data[roomId].drawInfo[drawId] = {type:type, points:[]};
+		data[roomId].drawInfo[drawId] = {type:type, points:[], colour:col};
 		io.to(roomId).emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 

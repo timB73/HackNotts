@@ -26,9 +26,10 @@ $(document).ready(function() {
     var drawStatus = "inactive";
     $("#whiteboard").mousedown(function(){
         if(mouseDown == 0){
-            socket.emit('initDraw', tool);
+            var sendData = {type:tool, colour:penColour}
+            socket.emit('initDraw', JSON.stringify(sendData));
             drawStatus = "pending";
-            if(penColour = "") {
+            if(penColour == "") {
                 penColour = userCol;
             }
         }
@@ -38,7 +39,7 @@ $(document).ready(function() {
     $("#whiteboard").mouseup(function(){
         --mouseDown;
         if(mouseDown == 0){
-
+            ctx.strokeStyle = penColour;
             if(tool != 0){
 
                 switch(tool){
@@ -99,6 +100,7 @@ $(document).ready(function() {
             if(tool == 0){
                 socket.emit('drawPoint', JSON.stringify(sendData));
             }
+            ctx.strokeStyle = penColour;
             draw(tool, drawId, pos);
         }
     });
@@ -128,7 +130,8 @@ $(document).ready(function() {
         ctx.clearRect(0, 0, whiteboard.width, whiteboard.height);
         for(var i=0; i<data.length;i++){
             var element = data[i];
-            var points = element.points;
+            var points = element.points
+            ctx.strokeStyle = element.colour;
             localDrawInfo[i] = {type:element.type, points:[], colour: element.colour}
             for(var p = 0; p<points.length;p++){
                 draw(element.type, i, points[p]);
@@ -158,7 +161,6 @@ $(document).ready(function() {
     });
 
     socket.on('initDrawId', function(data){
-        console.log(data);
         data = JSON.parse(data);
 
         if(data.name == name){
@@ -177,7 +179,7 @@ $(document).ready(function() {
     socket.on("drawPoint", function(data) {
         console.log(data);
         var data = JSON.parse(data);
-
+        ctx.strokeStyle = data.colour;
         draw(data.type, data.id, data.pos);
         if(data.type!=0 && localDrawInfo[data.id].points.length == 2){
             switch(data.type){
@@ -225,7 +227,6 @@ $(document).ready(function() {
 function drawLine(start,end){
 
     ctx.beginPath();
-    ctx.strokeStyle = penColour;
     ctx.lineWidth = Number($("#brush-width").val());
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
@@ -236,7 +237,6 @@ function drawLine(start,end){
 function drawRect(start,end){
     var size = {x:end.x-start.x,y:end.y-start.y};
     ctx.beginPath();
-    ctx.strokeStyle = penColour;
     ctx.lineWidth = Number($("#brush-width").val());
     ctx.rect(start.x,start.y,size.x,size.y);
     ctx.stroke();
@@ -252,7 +252,6 @@ function drawCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
-    ctx.strokeStyle = userCol;
     ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.stroke()
@@ -262,7 +261,6 @@ function drawFillCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
-    ctx.strokeStyle = userCol;
     ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.fillStyle = penColour;
