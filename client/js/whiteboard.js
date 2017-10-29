@@ -76,15 +76,19 @@ $(document).ready(function() {
         if(data.name == name){
             drawStatus = "drawing";
             drawId = data.id;
+            tmpId = drawId;
             type = tool;
         } else {
             type = data.type;
+            tmpId = data.id;
         }
-        localDrawInfo[drawId] = {type:type,points:[]}
+        localDrawInfo[tmpId] = {type:type,points:[]}
     });
 
     socket.on("drawPoint", function(data) {
+        console.log(data);
         var data = JSON.parse(data);
+
         draw(data.type, data.id, data.pos);
     });
 
