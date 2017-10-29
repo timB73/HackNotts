@@ -111,8 +111,10 @@ io.on('connection', function(socket){
 	socket.on("doesRoomExist", function(id){
 		if(!data[id]){
 			socket.emit("roomExists", 0);
+            console.log("Room doesn't exist!");
 		}else {
             socket.emit("roomExists", 1);
+            console.log("Room exists");
         }
 	});
 

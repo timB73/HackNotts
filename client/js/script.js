@@ -13,6 +13,7 @@ $(function(){
 
 	// tmp set username
 	$('#user-submit').click(function(){
+		sessionStorage.clear();
 		name = $('#username').val();
 		socket.emit('setUsername', name);
 		return false;
