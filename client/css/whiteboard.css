@@ -151,10 +151,7 @@ html, body {
     margin-left: 8px;
 }
 
-#logout {
-	margin-right: 10px;
-}
-
 #logout, #refresh {
 	cursor: pointer;
+	margin-right: 10px;
 }
