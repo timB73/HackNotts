@@ -35,7 +35,7 @@ $(document).ready(function() {
             }
         }
         ++mouseDown;
-    })
+    });
 
     $("#whiteboard").mouseup(function(){
         --mouseDown;
