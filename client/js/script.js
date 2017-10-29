@@ -45,6 +45,7 @@ $(function(){
 		window.history.pushState({}, '', '?id='+id);
 		showWhiteboard();
 		$('#code-txt').val(findGetParameter("id"));
+
 	});
 
 	socket.on('invalidRoom', function(err){
@@ -70,6 +71,8 @@ $(function(){
 		$('#whiteboard-bar').css("background-color", userCol);
 		$('#username-form').fadeOut();
 		$('#username-corner').text(name);
+		$("#nickname-val").text(name);
+
 		setTimeout(function(){
 			var url = window.location.href;
 			var whiteboardID = findGetParameter("id");
