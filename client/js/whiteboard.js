@@ -52,6 +52,7 @@ $(document).ready(function() {
                     break
                     case 2:
                     case 3:
+                    case 4:
                         var a = localDrawInfo[drawId].points[0];
                         var b = localDrawInfo[drawId].points[1];
                         var min = {x:Math.min(a.x,b.x),y:Math.min(a.y,b.y)};
@@ -63,8 +64,10 @@ $(document).ready(function() {
 
                         if(tool == 2){
                             drawRect(min,max);
-                        } else {
+                        } else if(tool==3) {
                             drawFillRect(min,max);
+                        } else {
+                            drawEllipse(min,max)
                         }
                     break
 
@@ -147,7 +150,9 @@ $(document).ready(function() {
                     case 3:
                         drawFillRect(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
                     break
-
+                    case 4:
+                        drawEllipse(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
+                    break
                     case 5:
                         drawCircle(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
                     break
@@ -192,7 +197,9 @@ $(document).ready(function() {
                 case 3:
                     drawFillRect(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
                 break
-
+                case 4:
+                    drawEllipse(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
+                break
                 case 5:
                     drawCircle(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
                 break
@@ -266,6 +273,17 @@ function drawFillCircle(start,end){
     ctx.fillStyle = penColour;
     ctx.fill();
     ctx.stroke()
+}
+
+function drawEllipse(start,end){
+    ctx.beginPath();
+    ctx.lineWidth = Number($("#brush-width").val());
+    var cent = {
+        x:start.x+((end.x-start.x)/2),
+        y:start.y+((end.y-start.y)/2)
+    }
+    ctx.ellipse(cent.x,cent.y, (end.x-start.x)/2, (end.y-start.y)/2, 0, 0, 2*Math.PI);
+    ctx.stroke();
 }
 
 function getMousePos(canvas, evt) {
