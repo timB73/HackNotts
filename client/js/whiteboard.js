@@ -27,7 +27,7 @@ $(document).ready(function() {
     var drawStatus = "inactive";
     $("#whiteboard").mousedown(function(){
         if(mouseDown == 0){
-            var sendData = {type:tool, colour:penColour}
+            var sendData = {type:tool, colour:penColour, width:Number($("#brush-width").val())}
             socket.emit('initDraw', JSON.stringify(sendData));
             drawStatus = "pending";
             if(penColour == "") {
@@ -41,13 +41,14 @@ $(document).ready(function() {
         --mouseDown;
         if(mouseDown == 0){
             ctx.strokeStyle = penColour;
+            ctx.lineWidth = Number($("#brush-width").val());
             if(tool != 0){
 
                 switch(tool){
                     case 1: // straight line
                         drawLine(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
@@ -58,8 +59,8 @@ $(document).ready(function() {
                         var b = localDrawInfo[drawId].points[1];
                         var min = {x:Math.min(a.x,b.x),y:Math.min(a.y,b.y)};
                         var max = {x:Math.max(a.x,b.x),y:Math.max(a.y,b.y)};
-                        var sendData1 = {pos: min, type:tool, id:drawId, colour: penColour};
-                        var sendData2 = {pos: max, type:tool, id:drawId, colour: penColour};
+                        var sendData1 = {pos: min, type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())};
+                        var sendData2 = {pos: max, type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())};
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
 
@@ -74,15 +75,15 @@ $(document).ready(function() {
 
                     case 5:
                         drawCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
                     case 6:
                         drawFillCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
-                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour}
-                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour}
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId, colour: penColour, width:Number($("#brush-width").val())}
                         socket.emit('drawPoint', JSON.stringify(sendData1));
                         socket.emit('drawPoint', JSON.stringify(sendData2));
                     break
@@ -99,12 +100,13 @@ $(document).ready(function() {
 
     $("#whiteboard").mousemove(function(evt){
         var pos = getMousePos(document.getElementById("whiteboard"), evt)
-        var sendData = {pos: pos, id: drawId, type:tool, colour: penColour};
+        var sendData = {pos: pos, id: drawId, type:tool, colour: penColour, width:Number($("#brush-width").val())};
         if(mouseDown && drawStatus == "drawing"){
             if(tool == 0){
                 socket.emit('drawPoint', JSON.stringify(sendData));
             }
             ctx.strokeStyle = penColour;
+            ctx.lineWidth = Number($("#brush-width").val());
             draw(tool, drawId, pos);
         }
     });
@@ -136,6 +138,7 @@ $(document).ready(function() {
             var element = data[i];
             var points = element.points
             ctx.strokeStyle = element.colour;
+            ctx.lineWidth = element.width;
             localDrawInfo[i] = {type:element.type, points:[], colour: element.colour}
             for(var p = 0; p<points.length;p++){
                 draw(element.type, i, points[p]);
@@ -186,6 +189,7 @@ $(document).ready(function() {
         console.log(data);
         var data = JSON.parse(data);
         ctx.strokeStyle = data.colour;
+        ctx.lineWidth = data.width;
         draw(data.type, data.id, data.pos);
         if(data.type!=0 && localDrawInfo[data.id].points.length == 2){
             switch(data.type){
@@ -235,7 +239,6 @@ $(document).ready(function() {
 function drawLine(start,end){
 
     ctx.beginPath();
-    ctx.lineWidth = Number($("#brush-width").val());
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
     ctx.stroke();
@@ -245,7 +248,6 @@ function drawLine(start,end){
 function drawRect(start,end){
     var size = {x:end.x-start.x,y:end.y-start.y};
     ctx.beginPath();
-    ctx.lineWidth = Number($("#brush-width").val());
     ctx.rect(start.x,start.y,size.x,size.y);
     ctx.stroke();
 }
@@ -260,7 +262,6 @@ function drawCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
-    ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.stroke()
 }
@@ -269,7 +270,6 @@ function drawFillCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
-    ctx.lineWidth = Number($("#brush-width").val());
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.fillStyle = penColour;
     ctx.fill();
@@ -278,7 +278,6 @@ function drawFillCircle(start,end){
 
 function drawEllipse(start,end){
     ctx.beginPath();
-    ctx.lineWidth = Number($("#brush-width").val());
     var cent = {
         x:start.x+((end.x-start.x)/2),
         y:start.y+((end.y-start.y)/2)

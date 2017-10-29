@@ -143,7 +143,7 @@ io.on('connection', function(socket){
 		var type = funcData.type;
 		var col = funcData.colour;
 		drawId = data[roomId].drawInfo.length;
-		data[roomId].drawInfo[drawId] = {type:type, points:[], colour:col};
+		data[roomId].drawInfo[drawId] = {type:type, points:[], colour:col, width:funcData.width};
 		io.to(roomId).emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 

@@ -110,7 +110,9 @@ $(function(){
 	}
 
 	$( window ).resize(function() {
-	 	fixRes($('#whiteboard'));
+		if(roomId!=""){
+	 		fixRes($('#whiteboard'));
+	 	}
 	});
 
 	
