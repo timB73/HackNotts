@@ -7,7 +7,7 @@ var toolNames = [["Freeform line","001-random-line.png"]];
 
 $(document).ready(function() {
 
-    
+
 
     var localDrawInfo = [];
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
     socket.on('initDrawId', function(data){
         data = JSON.parse(data);
-        
+
         if(data.name == name){
             drawStatus = "drawing";
             drawId = data.id;
@@ -99,7 +99,7 @@ $(document).ready(function() {
 });
 
 function drawLine(start,end){
-    
+
     ctx.beginPath();
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);

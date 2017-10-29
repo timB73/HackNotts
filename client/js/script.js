@@ -2,14 +2,11 @@ var name = "";
 var userCol = "";
 $(function(){
 
-	if(sessionStorage.getItem("userData") != null) {
+	var tmpId = findGetParameter("id");
+	if(sessionStorage.getItem("userData") != null && tmpId) {
 		var userData = JSON.parse(sessionStorage.getItem("userData"));
 		name = userData.name;
 		userCol = userData.colour;
-	}
-
-	var tmpId = findGetParameter("id");
-	if(tmpId){
 		socket.emit("doesRoomExist", tmpId);
 	}
 
@@ -43,16 +40,20 @@ $(function(){
 		return false;
 
 	});
-	socket.on("roomNotExist", function(){
-		sessionStorage.clear();
-		window.history.pushState({}, '', '?');
+	socket.on("roomExists", function(exists){
+		if(!exists) {
+			sessionStorage.clear();
+			window.history.pushState({}, '', '?');
+		}else { // the room exists
+			socket.emit("writeSessionData", sessionStorage.getItem("userData"));
+			validUsername();
+			socket.emit("joinRoom", tmpId);
+		}
 	});
 
 	socket.on('validRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
-		window.history.pushState({}, '', '?id='+id);
-		showWhiteboard();
-		$('#code-txt').val(findGetParameter("id"));
+			goToRoom(id);
 
 	});
 
@@ -76,11 +77,7 @@ $(function(){
 
 	socket.on('validName', function(col){
 		userCol = col;
-		$('#whiteboard-bar').css("background-color", userCol);
-		$('#username-form').fadeOut();
-		$('#username-corner').text(name);
-		$("#nickname-val").text(name);
-		sessionStorage.setItem("userData", JSON.stringify({name: name, colour: userCol}));
+		validUsername();
 		setTimeout(function(){
 			var url = window.location.href;
 			var whiteboardID = findGetParameter("id");
@@ -91,6 +88,20 @@ $(function(){
 			}
 		}, 500);
 	});
+
+	function validUsername() {
+		$('#whiteboard-bar').css("background-color", userCol);
+		$('#username-form').fadeOut();
+		$('#username-corner').text(name);
+		$("#nickname-val").text(name);
+		sessionStorage.setItem("userData", JSON.stringify({name: name, colour: userCol}));
+	}
+
+	function goToRoom(roomID) {
+		window.history.pushState({}, '', '?id='+roomID);
+		showWhiteboard();
+		$('#code-txt').val(findGetParameter("id"));
+	}
 
 
 
