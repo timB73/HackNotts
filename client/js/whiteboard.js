@@ -1,10 +1,13 @@
 var whiteboard = document.getElementById("whiteboard");
 var ctx = whiteboard.getContext("2d");
 var drawId = null;
+
+var tool = 1;
+var toolNames = [["Freeform line","001-random-line.png"];
+
 $(document).ready(function() {
 
-    var tool = 1;
-    var toolNames = ["Freeform line"];
+    
 
     var localDrawInfo = [];
 
