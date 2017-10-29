@@ -199,6 +199,24 @@ function drawFillRect(start,end){
     ctx.stroke();
 }
 
+function drawCircle(start,end){
+    var rad = Math.sqrt( ((end.x-start.x)^2) + ((end.y-start.y)^2) );
+
+    ctx.beginPath();
+    ctx.arc(start.x,start.y,rad,0,2*Math.PI);
+    ctx.stroke()
+}
+
+function drawFillCircle(start,end){
+    var rad = Math.sqrt( ((end.x-start.x)^2) + ((end.y-start.y)^2) );
+
+    ctx.beginPath();
+    ctx.arc(start.x,start.y,rad,0,2*Math.PI);
+    context.fillStyle = 'green';
+    context.fill();
+    ctx.stroke()
+}
+
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
