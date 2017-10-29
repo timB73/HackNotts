@@ -2,7 +2,7 @@ var whiteboard = document.getElementById("whiteboard");
 var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
-var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Text", "006-text-height-adjustment.png"]];
+var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Text", "006-text-height-adjustment.png"], ["Filled rectangle", "003-photo-frame-filled.png"]];
 var tool = 0;
 
 $(document).ready(function() {
