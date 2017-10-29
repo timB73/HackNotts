@@ -4,6 +4,7 @@ var drawId = null;
 
 var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Filled rectangle", "003-photo-frame-filled.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Outlined circle", "011-circle-outline-shape-variant.png"], ["Filled circle", "010-circle-fill-shape-variant.png"], ["Text", "006-text-height-adjustment.png"]];
 var tool = 0;
+var penColour = "";
 
 $(document).ready(function() {
 
@@ -27,6 +28,9 @@ $(document).ready(function() {
         if(mouseDown == 0){
             socket.emit('initDraw', tool);
             drawStatus = "pending";
+            if(penColour = "") {
+                penColour = userCol;
+            }
         }
         ++mouseDown;
     })
@@ -101,6 +105,7 @@ $(document).ready(function() {
 
     function draw(type, tmpDrawId, pos){
         drawPoints = localDrawInfo[tmpDrawId].points;
+        penColour = userCol;
         if(type == 0){
             if(drawPoints.length != 0) {
                 drawLine(drawPoints[drawPoints.length-1], pos);
@@ -172,6 +177,7 @@ $(document).ready(function() {
     socket.on("drawPoint", function(data) {
         console.log(data);
         var data = JSON.parse(data);
+
         draw(data.type, data.id, data.pos);
         if(data.type!=0 && localDrawInfo[data.id].points.length == 2){
             switch(data.type){
@@ -205,18 +211,31 @@ $(document).ready(function() {
         location.reload();
 	});
 
+    $("#blank").click(function() {
+        socket.emit("clear");
+    });
+
+    socket.on("clear", function() {
+        localDrawInfo = [];
+        ctx.clearRect(0, 0, whiteboard.width, whiteboard.height);
+    });
+
 });
 
 function drawLine(start,end){
 
     ctx.beginPath();
+    ctx.strokeStyle = penColour;
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);
     ctx.stroke();
+    ctx.closePath();
 }
 
 function drawRect(start,end){
-    var size = {x:end.x-start.x,y:end.y-start.y}
+    var size = {x:end.x-start.x,y:end.y-start.y};
+    ctx.beginPath();
+    ctx.strokeStyle = penColour;
     ctx.rect(start.x,start.y,size.x,size.y);
     ctx.stroke();
 }
@@ -231,6 +250,7 @@ function drawCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
+    ctx.strokeStyle = userCol;
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.stroke()
 }
@@ -239,6 +259,7 @@ function drawFillCircle(start,end){
     var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
+    ctx.strokeStyle = userCol;
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
     ctx.fillStyle = 'black';
     ctx.fill();

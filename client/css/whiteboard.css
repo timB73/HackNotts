@@ -151,7 +151,7 @@ html, body {
     margin-left: 8px;
 }
 
-#logout, #refresh {
+#logout, #refresh, #blank {
 	cursor: pointer;
 	margin-right: 10px;
 }

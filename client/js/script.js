@@ -7,6 +7,7 @@ $(function(){
 		var userData = JSON.parse(sessionStorage.getItem("userData"));
 		name = userData.name;
 		userCol = userData.colour;
+		penColour = userCol;
 		socket.emit("doesRoomExist", tmpId);
 	}
 
@@ -77,6 +78,7 @@ $(function(){
 
 	socket.on('validName', function(col){
 		userCol = col;
+		penColour = userCol;
 		validUsername();
 		setTimeout(function(){
 			var url = window.location.href;

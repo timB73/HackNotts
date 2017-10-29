@@ -138,7 +138,7 @@ io.on('connection', function(socket){
 
 	socket.on('initDraw', function(type){
 		drawId = data[roomId].drawInfo.length;
-		data[roomId].drawInfo[drawId] = {type:type, points:[]}
+		data[roomId].drawInfo[drawId] = {type:type, points:[]};
 		io.to(roomId).emit('initDrawId', JSON.stringify({id:drawId,name:name,type:type}));
 	});
 
@@ -163,6 +163,10 @@ io.on('connection', function(socket){
 
     });
 
+    socket.on("clear", function() {
+        data[roomId].drawInfo = [];
+        io.to(roomId).emit("clear");
+    });
 
 	//chat handling
 
