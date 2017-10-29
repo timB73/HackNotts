@@ -62,6 +62,21 @@ $(document).ready(function() {
                             drawFillRect(min,max);
                         }
                     break
+
+                    case 5:
+                        drawCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId}
+                        socket.emit('drawPoint', JSON.stringify(sendData1));
+                        socket.emit('drawPoint', JSON.stringify(sendData2));
+                    break
+                    case 6:
+                        drawFillCircle(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
+                        var sendData1 = {pos: localDrawInfo[drawId].points[0], type:tool, id:drawId}
+                        var sendData2 = {pos: localDrawInfo[drawId].points[1], type:tool, id:drawId}
+                        socket.emit('drawPoint', JSON.stringify(sendData1));
+                        socket.emit('drawPoint', JSON.stringify(sendData2));
+                    break
                 }
 
 
@@ -124,6 +139,13 @@ $(document).ready(function() {
                     case 3:
                         drawFillRect(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
                     break
+
+                    case 5:
+                        drawCircle(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
+                    break
+                    case 6:
+                        drawFillCircle(localDrawInfo[i].points[0], localDrawInfo[i].points[1]);
+                    break
                 }
             }
         }
@@ -162,6 +184,13 @@ $(document).ready(function() {
                 case 3:
                     drawFillRect(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
                 break
+
+                case 5:
+                    drawCircle(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
+                break
+                case 5:
+                    drawFillCircle(localDrawInfo[data.id].points[0], localDrawInfo[data.id].points[1]);
+                break
             }
         }
     });
@@ -199,7 +228,7 @@ function drawFillRect(start,end){
 }
 
 function drawCircle(start,end){
-    var rad = Math.sqrt( ((end.x-start.x)^2) + ((end.y-start.y)^2) );
+    var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
@@ -207,12 +236,12 @@ function drawCircle(start,end){
 }
 
 function drawFillCircle(start,end){
-    var rad = Math.sqrt( ((end.x-start.x)^2) + ((end.y-start.y)^2) );
+    var rad = Math.sqrt( Math.pow((end.x-start.x),2) + Math.pow((end.y-start.y),2) );
 
     ctx.beginPath();
     ctx.arc(start.x,start.y,rad,0,2*Math.PI);
-    context.fillStyle = 'green';
-    context.fill();
+    ctx.fillStyle = 'black';
+    ctx.fill();
     ctx.stroke()
 }
 
