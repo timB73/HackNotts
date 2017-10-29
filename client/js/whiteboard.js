@@ -3,18 +3,18 @@ var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
 var tool = 1;
-var toolNames = [["Freeform line","001-random-line.png"];
+var toolNames = [["Freeform line","001-random-line.png"]];
 
 $(document).ready(function() {
 
-    
+
 
     var localDrawInfo = [];
 
     $('#copy-code').click(function(){
         var ret = copyToClipboard(findGetParameter("id"));
         $('#copy-code-error').text(ret);
-        $('#copy-code-error').show()
+        $('#copy-code-error').show();
         setTimeout(function(){
             $('#copy-code-error').fadeOut();
         }, 2000);
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
     socket.on('initDrawId', function(data){
         data = JSON.parse(data);
-        
+
         if(data.name == name){
             drawStatus = "drawing";
             drawId = data.id;
@@ -99,7 +99,7 @@ $(document).ready(function() {
 });
 
 function drawLine(start,end){
-    
+
     ctx.beginPath();
     ctx.moveTo(start.x,start.y);
     ctx.lineTo(end.x,end.y);

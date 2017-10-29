@@ -60,6 +60,10 @@ io.on('connection', function(socket){
 	socket.on('disconnect', function(){
 		io.emit('userLeave', name);
 		if(roomId!=""){
+            var nsp = io.nsps['/'].adapter.rooms[roomId];
+            if(!nsp) {
+                delete data[roomId];
+            }
 			io.to(roomId).emit('serverMsg', name+" has left the room.");
 		}
 		console.log("discon");
@@ -79,7 +83,7 @@ io.on('connection', function(socket){
 		if(nsp){
    			socket.join(id);
 
-   			socket.emit('validRoom', id)
+   			socket.emit('validRoom', id);
 
    			io.sockets.in(id).emit('userJoinedRoom', name);
 
@@ -93,6 +97,7 @@ io.on('connection', function(socket){
    			socket.emit('fullData', JSON.stringify(data[roomId].drawInfo));
 
    		} else {
+            console.log("Room does not exist");
 			socket.emit('invalidRoom', "Room does not exist")
    		}
 	});
@@ -106,8 +111,10 @@ io.on('connection', function(socket){
 	socket.on("doesRoomExist", function(id){
 		console.log(id);
 		if(!data[id]){
-			socket.emit("roomNotExist");
-		}
+			socket.emit("roomExists", 0);
+		}else {
+            socket.emit("roomExists", 1);
+        }
 	});
 
 	socket.on('createRoom', function(){
@@ -148,6 +155,16 @@ io.on('connection', function(socket){
 	socket.on('fullDataRequest', function(){
 		socket.emit('fullData', JSON.stringify(data[roomId].drawInfo));
 	});
+
+
+    // Write the session data into the variables (page refresh)
+    socket.on("writeSessionData", function(sessionData) {
+        sessionData = JSON.parse(sessionData);
+
+        users[sessionData.name] = socket;
+
+
+    });
 
 
 	//chat handling
