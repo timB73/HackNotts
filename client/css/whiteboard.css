@@ -36,6 +36,12 @@ html, body {
     bottom: 0px;
 }
 
+#nickname p {
+	font-size: 20px;
+	margin: 6px;
+}
+
+
 #whiteboard-bar {
 	width: 80%;
     display: inline-block;
