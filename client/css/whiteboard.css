@@ -49,11 +49,12 @@ html, body {
     position:relative;
 }
 
-#close-image {
+.close-image {
     padding: 0;
     margin: 0;
     vertical-align: top;
     position:absolute;
+    background-color: #E1E1E1;
 }
 
 
