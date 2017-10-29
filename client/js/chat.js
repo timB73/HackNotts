@@ -41,13 +41,17 @@ $(document).ready(function() {
 			document.getElementById("chat-minimize").className = "fa fa-window-maximize";
 			$("#chat-minimize").prop("title", "Maximize chat");
 			$("#chat-messages-list").hide();
-			$("#whiteboard").animate({width: "100%"}, 500);
+			$("#whiteboard").animate({width: "100%"},{ duration:500, step: function(){       
+				fixRes($('#whiteboard'))
+			} });
 			$("#chat").animate({width: "0%"}, 500);
 			$("#chat").hide();
-		}else {
+		} else {
 			document.getElementById("chat-minimize").className = "fa fa-window-minimize";
 			$("#chat-minimize").prop("title", "Minimize chat");
-			$("#whiteboard").animate({width: "80%"}, 500);
+			$("#whiteboard").animate({width: "80%"},{ duration:500, step: function(){       
+				fixRes($('#whiteboard'))
+			} });
 			$("#chat").show();
 			$("#chat").animate({width: "20%"}, 500);
 			$("#chat-messages-list").fadeIn();

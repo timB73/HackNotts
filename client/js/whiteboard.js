@@ -2,7 +2,8 @@ var whiteboard = document.getElementById("whiteboard");
 var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
-var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Filled rectangle", "003-photo-frame-filled.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Outlined circle", "011-circle-outline-shape-variant.png"], ["Filled circle", "010-circle-fill-shape-variant.png"], ["Text", "006-text-height-adjustment.png"]];
+var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Filled rectangle", "003-photo-frame-filled.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Outlined circle", "011-circle-outline-shape-variant.png"], ["Filled circle", "010-circle-fill-shape-variant.png"]];
+//, ["Text", "006-text-height-adjustment.png"]];
 var tool = 0;
 var penColour = "";
 
@@ -330,5 +331,6 @@ function showWhiteboard() {
 	$("#createOrJoin-form, #username-corner").fadeOut()
     setTimeout(function() {
 		$("#whiteboard-row").fadeIn();
+        fixRes($('#whiteboard'));
 	}, 500);
 }

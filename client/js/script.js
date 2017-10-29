@@ -56,6 +56,7 @@ $(function(){
 	socket.on('validRoom', function(id){
 		// window.location.href="whiteboard.html?id="+id+"&name="+name;
 			goToRoom(id);
+			
 
 	});
 
@@ -100,11 +101,26 @@ $(function(){
 		sessionStorage.setItem("userData", JSON.stringify({name: name, colour: userCol}));
 	}
 
+	
+
 	function goToRoom(roomID) {
 		window.history.pushState({}, '', '?id='+roomID);
 		showWhiteboard();
 		$('#code-txt').val(findGetParameter("id"));
 	}
 
+	$( window ).resize(function() {
+	 	fixRes($('#whiteboard'));
+	});
+
+	
+
 
 });
+
+function fixRes(canvas){
+	canvas.attr("height",800);
+	canvas.attr("width",800*(canvas.width()/canvas.height()));
+	socket.emit('fullDataRequest');
+
+}
