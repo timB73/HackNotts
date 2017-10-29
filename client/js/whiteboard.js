@@ -2,7 +2,7 @@ var whiteboard = document.getElementById("whiteboard");
 var ctx = whiteboard.getContext("2d");
 var drawId = null;
 
-var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Text", "006-text-height-adjustment.png"], ["Filled rectangle", "003-photo-frame-filled.png"]];
+var toolNames = [["Freeform line", "001-random-line.png"], ["Straight line", "002-substract.png"], ["Rectangle", "003-photo-frame.png"], ["Filled rectangle", "003-photo-frame-filled.png"], ["Ellipse", "005-ellipse-outline-shape-variant.png"], ["Text", "006-text-height-adjustment.png"]];
 var tool = 0;
 
 $(document).ready(function() {
@@ -34,9 +34,9 @@ $(document).ready(function() {
     $("#whiteboard").mouseup(function(){
         --mouseDown;
         if(mouseDown == 0){
-            
+
             if(tool != 0){
-                
+
                 switch(tool){
                     case 1:
                         drawLine(localDrawInfo[drawId].points[0], localDrawInfo[drawId].points[1]);
@@ -65,7 +65,7 @@ $(document).ready(function() {
                 }
 
 
-                
+
 
             }
             drawStatus = "invalid"
@@ -99,7 +99,7 @@ $(document).ready(function() {
                 drawPoints[1] = pos;
             }
         }
-        
+
         localDrawInfo[tmpDrawId].points = drawPoints;
     }
 
