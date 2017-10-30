@@ -255,6 +255,7 @@ function drawRect(start,end){
 function drawFillRect(start,end){
     var size = {x:end.x-start.x,y:end.y-start.y}
     ctx.beginPath();
+    ctx.fillStyle = ctx.strokeStyle;
     ctx.fillRect(start.x,start.y,size.x,size.y);
     ctx.stroke();
 }
