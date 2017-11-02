@@ -310,10 +310,8 @@ function copyToClipboard(text) {
         msg = 'Unable to copy :(';
 
     }
-
-    return msg;
-
     $temp.remove();
+	return msg;
 }
 
 function findGetParameter(parameterName) {
